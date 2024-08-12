@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace _2DMiningGameMG
 {
@@ -9,10 +11,11 @@ namespace _2DMiningGameMG
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Gamestate activeGamestate;
-
+        public static ContentManager Content2;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            Content2 = Content;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -27,7 +30,7 @@ namespace _2DMiningGameMG
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -45,7 +48,7 @@ namespace _2DMiningGameMG
 
         protected override void Draw(GameTime gameTime)
         {
-            activeGamestate.Draw();
+            activeGamestate.Draw(_spriteBatch);
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here

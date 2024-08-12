@@ -11,43 +11,35 @@ namespace _2DMiningGameMG
 {
     internal class World
     {
-        enum TileTypes { empty, grass, stone}
-        private TileTypes[,,] worldGrid;
-
-        public World() { }
-
-        private TileTypes[,,] CreateNewWorldGrid(int width, int height, int depth)
+        private Tile[,,] worldGrid;
+        private Vector2 cameraOffset;
+        public World(Tile[,,] grid = null) 
         {
-            TileTypes[,,] grid = new TileTypes[width, height, depth];
+            if (grid is null)
+                worldGrid = CreateNewWorldGrid(25, 25, 25);
+        }
+
+        private Tile[,,] CreateNewWorldGrid(int width, int height, int depth)
+        {
+            Tile[,,] grid = new Tile[width, height, depth];
             for (int i = 0; i < width; i++)
                 for (int j = 0; i < height; j++)
                     for (int k = 0; k < depth; k++)
                     {
                         if (k == 0)
-                            grid[i, j, k] = TileTypes.grass;
+                            grid[i, j, k] = new GrassTile(i, j, k);
                         else
-                            grid[i, j, k] = TileTypes.stone;
+                            grid[i, j, k] = new StoneTile(i, j, k);
                     }
             return grid;
         }
 
-        protected void Initialize()
-        {
-            if (worldGrid is null)
-                worldGrid = CreateNewWorldGrid(25, 25, 25);
-        }
-
-        protected void LoadContent()
-        {
-           
-        }
-
-        protected void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
         }
 
-        protected void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
             DrawTiles(spriteBatch);
         }
@@ -58,18 +50,10 @@ namespace _2DMiningGameMG
                 for (int j = 0; i < worldGrid.GetLength(1); j++)
                     for (int k = 0; k < worldGrid.GetLength(2); k++)
                     {
-                        if (worldGrid[i, j, k] == TileTypes.empty)
+                        if (worldGrid[i, j, k] is null)
                             continue;
                         else
-                        {
-                            switch (worldGrid[i, j, k])
-                            {
-                                case TileTypes.empty:
-                                    spriteBatch.Draw();
-                                    break;
-                            }
-                            break;
-                        }
+                            worldGrid[i, j, k].Draw(spriteBatch, cameraOffset);
                     }
         }
     }

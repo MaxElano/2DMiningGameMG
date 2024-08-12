@@ -10,14 +10,35 @@ namespace _2DMiningGameMG
 {
     internal class Tile
     {
-        public int x;
-        public int y;
-        public int z;
-        public Texture texture;
+        private Vector2 gridPosition;
+        private int depth;
 
-        protected void Draw(SpriteBatch spriteBatch)
+        private Texture2D texture;
+        private Vector2 textureOffset;
+        private Vector2 texturePosition;
+
+        public Tile(int x, int y, int depth, Texture2D texture)
         {
-        
+            this.gridPosition = new Vector2(x, y);
+            this.depth = depth;
+            this.texture = texture;
+            this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.texturePosition = new Vector2(x * texture.Width, y * texture.Width);
+        }
+
+        public virtual void Initialize()
+        {
+
+        }
+
+        public virtual void Update(GameTime gameTime)
+        {
+
+        }
+
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 globalOffset)
+        {
+            spriteBatch.Draw(texture, globalOffset + texturePosition + textureOffset, Color.White);
         }
     }
 }

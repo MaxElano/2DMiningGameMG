@@ -1,16 +1,20 @@
-﻿using _2DMiningGameMG;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace _2DMiningGameMG
 {
     internal class Playstate : Gamestate
     {
+        World world;
+        public Playstate() : base()
+        {
+            world = new World();
+        }
         public override void Initialize()
         {
             base.Initialize();
@@ -18,12 +22,14 @@ namespace _2DMiningGameMG
 
         public override void Update(GameTime gameTime)
         {
+            world.Update(gameTime);
             base.Update(gameTime);
         }
 
-        public override void Draw()
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw();
+            world.Draw(spriteBatch);
+            base.Draw(spriteBatch);
         }
     }
 }
