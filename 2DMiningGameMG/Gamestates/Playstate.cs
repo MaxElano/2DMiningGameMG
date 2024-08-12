@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace _2DMiningGameMG
 {
@@ -15,9 +16,10 @@ namespace _2DMiningGameMG
         {
             world = new World();
         }
-        public override void Initialize()
+        public override void LoadContent(ContentManager content)
         {
-            base.Initialize();
+            world.LoadContent(content);
+            base.LoadContent(content);
         }
 
         public override void Update(GameTime gameTime)

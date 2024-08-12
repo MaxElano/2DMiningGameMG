@@ -13,7 +13,7 @@ namespace _2DMiningGameMG
 {
     internal class StoneTile : Tile
     {
-        public StoneTile(int x, int y, int z) : base(x, y, z, Game1.Content2.Load<Texture2D>("Sprites\\Tiles\\StoneTest.png"))
+        public StoneTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture)
         {
         }
     }

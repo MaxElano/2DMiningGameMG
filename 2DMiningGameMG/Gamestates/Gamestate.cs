@@ -5,12 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 namespace _2DMiningGameMG
 {
-    internal class Gamestate
+    internal abstract class Gamestate
     {
-        public virtual void Initialize()
+        List<object> gameObjects = new List<object>();
+        public virtual void LoadContent(ContentManager content)
         {
 
         }
@@ -22,6 +24,5 @@ namespace _2DMiningGameMG
         {
 
         }
-
     }
 }

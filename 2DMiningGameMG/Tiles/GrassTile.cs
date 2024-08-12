@@ -13,7 +13,7 @@ namespace _2DMiningGameMG
 {
     internal class GrassTile : Tile
     {
-        public GrassTile(int x, int y, int z) : base(x, y, z, Game1.Content2.Load<Texture2D>("Sprites\\Tiles\\GrassTest.png")) 
+        public GrassTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture) 
         {
         }
     }

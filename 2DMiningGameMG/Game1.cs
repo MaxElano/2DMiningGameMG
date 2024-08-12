@@ -11,11 +11,9 @@ namespace _2DMiningGameMG
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Gamestate activeGamestate;
-        public static ContentManager Content2;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
-            Content2 = Content;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -30,7 +28,7 @@ namespace _2DMiningGameMG
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+            activeGamestate.LoadContent(Content);
             // TODO: use this.Content to load your game content here
         }
 
