@@ -62,13 +62,17 @@ namespace _2DMiningGameMG
         protected void DrawTiles(SpriteBatch spriteBatch)
         {
             for (int i = 0; i < worldGrid.GetLength(0); i++)
-                for (int j = 0; i < worldGrid.GetLength(1); j++)
+                for (int j = 0; j < worldGrid.GetLength(1); j++)
                     for (int k = 0; k < worldGrid.GetLength(2); k++)
                     {
                         if (worldGrid[i, j, k] is null)
                             continue;
                         else
+                        {
                             worldGrid[i, j, k].Draw(spriteBatch, cameraOffset);
+                            break;
+                        }
+                        
                     }
         }
     }

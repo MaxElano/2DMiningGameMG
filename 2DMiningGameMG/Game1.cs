@@ -11,6 +11,7 @@ namespace _2DMiningGameMG
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Gamestate activeGamestate;
+        private Vector2 screenSize;
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -22,6 +23,12 @@ namespace _2DMiningGameMG
         {
             // TODO: Add your initialization logic here
             activeGamestate = new Playstate();
+            screenSize = new Vector2(1920, 1080);
+            _graphics.PreferredBackBufferWidth = (int)screenSize.X;
+            _graphics.PreferredBackBufferHeight = (int)screenSize.Y;
+            _graphics.IsFullScreen = true;
+            _graphics.ApplyChanges();
+            
             base.Initialize();
         }
 
@@ -46,9 +53,11 @@ namespace _2DMiningGameMG
 
         protected override void Draw(GameTime gameTime)
         {
-            activeGamestate.Draw(_spriteBatch);
+            
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            _spriteBatch.Begin();
+            activeGamestate.Draw(_spriteBatch);
+            _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
