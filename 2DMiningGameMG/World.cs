@@ -18,13 +18,15 @@ namespace _2DMiningGameMG
         private Dictionary<TextureName, Texture2D> textures;
 
         private Tile[,,] worldGrid;
-        private Vector2 cameraOffset;
-        public World(Tile[,,] grid = null) 
+        public Vector2 cameraOffset;
+        private Vector2 gridSize;
+        public World(GraphicsDeviceManager graphics, Tile[,,] grid = null) 
         {
             this.worldGrid = grid;
 
             textures = new Dictionary<TextureName, Texture2D>();
-            cameraOffset = new Vector2(0, 0);
+            cameraOffset = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+            
         }
 
         public void LoadContent(ContentManager content)
@@ -45,6 +47,7 @@ namespace _2DMiningGameMG
                         else
                             grid[i, j, k] = new StoneTile(i, j, k, textures[TextureName.stone]);
                     }
+            gridSize = new Vector2(width / 2, height / 2);
             return grid;
         }
 
@@ -69,7 +72,7 @@ namespace _2DMiningGameMG
                             continue;
                         else
                         {
-                            worldGrid[i, j, k].Draw(spriteBatch, cameraOffset);
+                            worldGrid[i, j, k].Draw(spriteBatch, cameraOffset, gridSize);
                             break;
                         }
                         

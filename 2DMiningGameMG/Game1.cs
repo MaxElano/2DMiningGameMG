@@ -12,6 +12,7 @@ namespace _2DMiningGameMG
         private SpriteBatch _spriteBatch;
         private Gamestate activeGamestate;
         private Vector2 screenSize;
+        
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -28,19 +29,23 @@ namespace _2DMiningGameMG
             _graphics.PreferredBackBufferHeight = (int)screenSize.Y;
             _graphics.IsFullScreen = true;
             _graphics.ApplyChanges();
+
             
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            activeGamestate.LoadContent(Content);
+            activeGamestate.LoadContent(Content, _graphics);
             // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
         {
+            
+
             activeGamestate.Update(gameTime);
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

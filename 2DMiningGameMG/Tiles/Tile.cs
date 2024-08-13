@@ -23,7 +23,7 @@ namespace _2DMiningGameMG
             this.depth = depth;
             this.texture = texture;
             this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
-            this.texturePosition = new Vector2(x * (texture.Width - 12), y * (texture.Height - 30));
+            this.texturePosition = new Vector2(x * (texture.Width), y * (texture.Height));
         }
 
         public virtual void Initialize()
@@ -36,9 +36,9 @@ namespace _2DMiningGameMG
 
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 globalOffset)
+        public virtual void Draw(SpriteBatch spriteBatch, Vector2 globalOffset, Vector2 gridOffset)
         {
-            spriteBatch.Draw(texture, globalOffset + texturePosition - textureOffset, Color.White);
+            spriteBatch.Draw(texture, globalOffset + texturePosition - textureOffset - new Vector2(gridOffset.X * (texture.Width), gridOffset.Y * (texture.Height)), Color.White);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace _2DMiningGameMG
     internal abstract class Gamestate
     {
         List<object> gameObjects = new List<object>();
-        public virtual void LoadContent(ContentManager content)
+        public virtual void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
 
         }
