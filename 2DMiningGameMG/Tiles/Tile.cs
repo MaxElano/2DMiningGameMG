@@ -16,6 +16,7 @@ namespace _2DMiningGameMG
         private Texture2D texture;
         private Vector2 textureOffset;
         private Vector2 texturePosition;
+        private Vector2 globalPosition;
         public Tile(int x, int y, int depth, Texture2D texture)
         {
             this.gridPosition = new Vector2(x, y);
@@ -30,14 +31,14 @@ namespace _2DMiningGameMG
 
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime, Vector2 globalOffset)
         {
-            
+            globalPosition = globalOffset + texturePosition - textureOffset;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch, Vector2 globalOffset, Vector2 gridOffset)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalOffset + texturePosition - textureOffset - new Vector2(gridOffset.X * (texture.Width), gridOffset.Y * (texture.Height)), Color.White);
+            spriteBatch.Draw(texture, globalPosition, Color.White);
         }
     }
 }

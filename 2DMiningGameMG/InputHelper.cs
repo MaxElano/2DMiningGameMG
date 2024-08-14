@@ -35,8 +35,7 @@ namespace _2DMiningGameMG
             if (keyboardState.IsKeyDown(Keys.D))
                 world.cameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
             if (LeftButtonJustPressed()) //Change this to influence the tile or let world influence the tile and this just tell world that it is pressed
-                world.cameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-            
+                world.HandleMouseClick(mouseState);
 
         }
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SharpDX.Direct3D9;
 using Microsoft.Xna.Framework.Content;
 using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework.Input;
 
 namespace _2DMiningGameMG
 {
@@ -19,7 +20,11 @@ namespace _2DMiningGameMG
 
         private Tile[,,] worldGrid;
         public Vector2 cameraOffset;
-        private Vector2 gridSize;
+        private Vector2 originalHalfGridSize;
+        private Vector2 position;
+        private float squareSize = 64;
+        public bool mouseClicked = false;
+
         public World(GraphicsDeviceManager graphics, Tile[,,] grid = null) 
         {
             this.worldGrid = grid;
@@ -47,7 +52,7 @@ namespace _2DMiningGameMG
                         else
                             grid[i, j, k] = new StoneTile(i, j, k, textures[TextureName.stone]);
                     }
-            gridSize = new Vector2(width / 2, height / 2);
+            originalHalfGridSize = new Vector2(width / 2, height / 2);
             return grid;
         }
 
@@ -55,6 +60,13 @@ namespace _2DMiningGameMG
         {
             if (worldGrid is null)
                 worldGrid = CreateNewWorldGrid(25, 25, 25);
+
+            position = cameraOffset - originalHalfGridSize * squareSize;
+
+            foreach (Tile t in worldGrid)
+            {
+                t.Update(gameTime, position);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -72,11 +84,17 @@ namespace _2DMiningGameMG
                             continue;
                         else
                         {
-                            worldGrid[i, j, k].Draw(spriteBatch, cameraOffset, gridSize);
+                            worldGrid[i, j, k].Draw(spriteBatch);
                             break;
                         }
                         
                     }
+        }
+
+        public void HandleMouseClick(MouseState mouseState)
+        {
+            Vector2 pos = mouseState.Position.ToVector2();
+            Vector2 dpos = (pos - cameraOffset + originalHalfGridSize * squareSize + new Vector2(squareSize / 2, squareSize / 2)) / squareSize;
         }
     }
 }
