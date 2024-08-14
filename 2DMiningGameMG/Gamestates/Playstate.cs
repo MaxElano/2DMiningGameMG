@@ -10,13 +10,14 @@ namespace _2DMiningGameMG
     {
         World world;
         float cameraSpeed = 1f;
-
+        InputHelper inputHelper;
         public Playstate() : base()
         {
             
         }
         public override void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
+            inputHelper = new InputHelper();
             world = new World(graphics);
             world.LoadContent(content);
             base.LoadContent(content, graphics);
@@ -24,7 +25,7 @@ namespace _2DMiningGameMG
 
         public override void Update(GameTime gameTime)
         {
-            InputHelper(gameTime);
+            inputHelper.UpdatePlayState(gameTime, world);
             world.Update(gameTime);
             base.Update(gameTime);
         }
@@ -35,16 +36,5 @@ namespace _2DMiningGameMG
             base.Draw(spriteBatch);
         }
 
-        public void InputHelper(GameTime gameTime)
-        {
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-                world.cameraOffset += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-                world.cameraOffset -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-                world.cameraOffset += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-                world.cameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-        }
     }
 }
