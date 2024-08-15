@@ -10,20 +10,21 @@ namespace _2DMiningGameMG
 {
     internal class Tile
     {
-        private Vector2 gridPosition;
-        private int depth;
-
+        public Vector3 GridPosition { get; private set; }
+        public bool IsTransparent { get; private set; }
         private Texture2D texture;
         private Vector2 textureOffset;
         private Vector2 texturePosition;
         private Vector2 globalPosition;
-        public Tile(int x, int y, int depth, Texture2D texture)
+        protected Color tempColor;
+        public Tile(int x, int y, int depth, Texture2D texture, bool isTransparent)
         {
-            this.gridPosition = new Vector2(x, y);
-            this.depth = depth;
+            this.tempColor = Color.White;
+            this.GridPosition = new Vector3(x, y, depth);
             this.texture = texture;
             this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
             this.texturePosition = new Vector2(x * (texture.Width), y * (texture.Height));
+            this.IsTransparent = isTransparent;
         }
 
         public virtual void Initialize()
@@ -38,7 +39,7 @@ namespace _2DMiningGameMG
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, Color.White);
+            spriteBatch.Draw(texture, globalPosition, tempColor);
         }
     }
 }

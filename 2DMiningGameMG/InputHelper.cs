@@ -27,13 +27,13 @@ namespace _2DMiningGameMG
         {
             UpdateStates();
             if (keyboardState.IsKeyDown(Keys.W))
-                world.cameraOffset += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
+                world.CameraOffset += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
             if (keyboardState.IsKeyDown(Keys.S))
-                world.cameraOffset -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
+                world.CameraOffset -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
             if (keyboardState.IsKeyDown(Keys.A))
-                world.cameraOffset += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
+                world.CameraOffset += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
             if (keyboardState.IsKeyDown(Keys.D))
-                world.cameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
+                world.CameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
             if (LeftButtonJustPressed()) //Change this to influence the tile or let world influence the tile and this just tell world that it is pressed
                 world.HandleMouseClick(mouseState);
 

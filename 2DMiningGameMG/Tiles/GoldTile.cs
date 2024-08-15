@@ -10,11 +10,11 @@ using SharpDX.Direct3D9;
 
 namespace _2DMiningGameMG
 {
-    internal class GrassTile : Tile
+    internal class GoldTile : Tile
     {
-        public GrassTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture, false) 
+        public GoldTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture, false)
         {
-            this.tempColor = Color.Green;
+            this.tempColor = Color.Gold;
         }
     }
 }

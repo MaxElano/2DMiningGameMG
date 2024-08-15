@@ -24,10 +24,11 @@ namespace _2DMiningGameMG
         {
             // TODO: Add your initialization logic here
             activeGamestate = new Playstate();
-            screenSize = new Vector2(1920, 1080);
+            //screenSize = new Vector2(1920, 1080);
+            screenSize = new Vector2(1700, 900);
             _graphics.PreferredBackBufferWidth = (int)screenSize.X;
             _graphics.PreferredBackBufferHeight = (int)screenSize.Y;
-            _graphics.IsFullScreen = true;
+            _graphics.IsFullScreen = false;
             _graphics.ApplyChanges();
 
             
@@ -59,7 +60,7 @@ namespace _2DMiningGameMG
         protected override void Draw(GameTime gameTime)
         {
             
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
             activeGamestate.Draw(_spriteBatch);
             _spriteBatch.End();

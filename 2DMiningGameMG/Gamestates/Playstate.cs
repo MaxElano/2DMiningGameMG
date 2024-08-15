@@ -11,14 +11,18 @@ namespace _2DMiningGameMG
         World world;
         float cameraSpeed = 1f;
         InputHelper inputHelper;
+        
         public Playstate() : base()
         {
             
         }
+
         public override void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
             inputHelper = new InputHelper();
             world = new World(graphics);
+            
+
             world.LoadContent(content);
             base.LoadContent(content, graphics);
         }
