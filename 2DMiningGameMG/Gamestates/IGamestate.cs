@@ -9,18 +9,17 @@ using Microsoft.Xna.Framework.Content;
 
 namespace _2DMiningGameMG
 {
-    internal abstract class Gamestate
+    internal interface IGamestate
     {
-        List<object> gameObjects = new List<object>();
-        public virtual void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
+        public void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
 
         }
-        public virtual void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
 
         }
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
 
         }

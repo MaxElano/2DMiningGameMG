@@ -10,7 +10,7 @@ namespace _2DMiningGameMG
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Gamestate activeGamestate;
+        private IGamestate activeGamestate;
         private Vector2 screenSize;
         
         public Game1()
@@ -62,9 +62,8 @@ namespace _2DMiningGameMG
             
             GraphicsDevice.Clear(Color.Black);
             _spriteBatch.Begin();
-            activeGamestate.Draw(_spriteBatch);
+            activeGamestate.Draw(_spriteBatch, _graphics);
             _spriteBatch.End();
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

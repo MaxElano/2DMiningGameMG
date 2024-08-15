@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using _2DMiningGameMG.UIs.Playstate;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -6,38 +7,38 @@ using System;
 
 namespace _2DMiningGameMG
 {
-    internal class Playstate : Gamestate
+    internal class Playstate : IGamestate
     {
         World world;
         float cameraSpeed = 1f;
         InputHelper inputHelper;
-        
-        public Playstate() : base()
+        BuildingUI buildingUI;
+
+        public Playstate()
         {
             
         }
 
-        public override void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
+        public void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
             inputHelper = new InputHelper();
             world = new World(graphics);
-            
+            buildingUI = new BuildingUI(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+            buildingUI.LoadContent(content);
 
             world.LoadContent(content);
-            base.LoadContent(content, graphics);
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             inputHelper.UpdatePlayState(gameTime, world);
             world.Update(gameTime);
-            base.Update(gameTime);
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
             world.Draw(spriteBatch);
-            base.Draw(spriteBatch);
+            buildingUI.Draw(spriteBatch, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
         }
 
     }

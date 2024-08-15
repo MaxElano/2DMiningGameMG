@@ -73,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Tiles/WhiteTile.png
 
-#begin Sprites/Tiles/WhiteTile.png
+#begin Sprites/UIs/Playstate/buildingBarBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,5 +83,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Tiles/WhiteTile.png
+/build:Sprites/UIs/Playstate/buildingBarBackground.png
 
