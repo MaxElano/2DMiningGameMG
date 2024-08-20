@@ -22,8 +22,8 @@ namespace _2DMiningGameMG
         public void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
         {
             inputHelper = new InputHelper();
-            world = new World(graphics);
             buildingUI = new BuildingUI(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
+            world = new World(graphics, buildingUI);
             buildingUI.LoadContent(content);
 
             world.LoadContent(content);

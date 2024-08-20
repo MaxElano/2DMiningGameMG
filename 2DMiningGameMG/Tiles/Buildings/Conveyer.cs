@@ -10,9 +10,10 @@ using SharpDX.Direct3D9;
 
 namespace _2DMiningGameMG.Tiles.Buildings
 {
-    internal class Conveyer : Tile
+    internal class Conveyer : Tile, IBuildable
     {
-
+        public bool Visible { get; set; } 
+        public bool Usable { get; set; }
         float conveyerSpeed; //Items per minute
         Queue<Resource> conveyerQueue;
         Direction direction;
@@ -25,6 +26,8 @@ namespace _2DMiningGameMG.Tiles.Buildings
             this.world = world;
             this.conveyerSpeed = conveyerSpeed;
             pushTimer = new Timer(conveyerSpeed / 60, PushItemFromQueue);
+            Visible = true;
+            Usable = true;
         }
 
         public override void Update(GameTime gameTime, Vector2 globalOffset)

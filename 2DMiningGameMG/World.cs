@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Input;
 using System.CodeDom;
+using _2DMiningGameMG.UIs.Playstate;
 
 
 namespace _2DMiningGameMG
@@ -31,8 +32,9 @@ namespace _2DMiningGameMG
         private Random randomOreGenerator;
         private int drawStartLayer;
         private int topLayer;
+        private BuildingUI buildingUI;
 
-        public World(GraphicsDeviceManager graphics, Tile[,,] grid = null) 
+        public World(GraphicsDeviceManager graphics, BuildingUI buildingUI, Tile[,,] grid = null) 
         {
             this.WorldGrid = grid;
             this.randomOreGenerator = new Random();

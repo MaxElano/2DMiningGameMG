@@ -9,11 +9,14 @@ using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
 using SharpDX.DirectWrite;
 using System.Diagnostics;
+using _2DMiningGameMG.Tiles.Buildings;
 
 namespace _2DMiningGameMG
 {
-    internal class Miner : Tile
+    internal class Miner : Tile, IBuildable
     {
+        public bool Visible { get; set; }
+        public bool Usable { get; set; }
         private Timer miningTimer;
         private Tile[,,] worldGrid;
         public Miner(Tile[,,] worldGrid, int x, int y, int z, Texture2D texture) : base(x, y, z, texture, true)
@@ -21,6 +24,8 @@ namespace _2DMiningGameMG
             this.tempColor = Color.Pink;
             this.worldGrid = worldGrid;
             this.miningTimer = new Timer(2, Mine);
+            Visible = true;
+            Usable = true;
         }
 
         public override void Update(GameTime gameTime, Vector2 globalOffset)

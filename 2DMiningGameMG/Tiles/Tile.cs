@@ -13,7 +13,7 @@ namespace _2DMiningGameMG
         protected enum Direction { Up, Down, Left, Right }
         public Vector3 GridPosition { get; private set; }
         public bool IsTransparent { get; private set; }
-        private Texture2D texture;
+        public Texture2D Texture { get; private set; }
         private Vector2 textureOffset;
         private Vector2 texturePosition;
         private Vector2 globalPosition;
@@ -22,7 +22,7 @@ namespace _2DMiningGameMG
         {
             this.tempColor = Color.White;
             this.GridPosition = new Vector3(x, y, depth);
-            this.texture = texture;
+            this.Texture = texture;
             this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
             this.texturePosition = new Vector2(x * (texture.Width), y * (texture.Height));
             this.IsTransparent = isTransparent;
@@ -40,7 +40,7 @@ namespace _2DMiningGameMG
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, tempColor);
+            spriteBatch.Draw(Texture, globalPosition, tempColor);
         }
     }
 }
