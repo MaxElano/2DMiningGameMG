@@ -15,9 +15,6 @@ namespace _2DMiningGameMG.Tiles.Buildings
     internal interface IStoragable
     {
         public bool CanReceive { protected set; get; }
-        public void ReceiveResource(Resource resource)
-        {
-
-        }
+        public abstract void ReceiveResource(Resource resource);
     }
 }

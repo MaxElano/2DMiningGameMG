@@ -10,8 +10,9 @@ using SharpDX.Direct3D9;
 
 namespace _2DMiningGameMG.Tiles.Buildings
 {
-    internal class Conveyer : Tile, IBuildable
+    internal class Conveyer : Tile, IBuildable, IStoragable
     {
+        public bool CanReceive { get; set; }
         public bool Visible { get; set; } 
         public bool Usable { get; set; }
         float conveyerSpeed; //Items per minute
@@ -35,11 +36,6 @@ namespace _2DMiningGameMG.Tiles.Buildings
             pushTimer.Update(gameTime);
 
             base.Update(gameTime, globalOffset);
-        }
-
-        public void InsertResourceToQueue(Resource resource)
-        {
-            conveyerQueue.Enqueue(resource);
         }
 
         public void PushItemFromQueue()
@@ -76,6 +72,11 @@ namespace _2DMiningGameMG.Tiles.Buildings
             {
                 (tile as IStoragable).ReceiveResource(res);
             }
+        }
+
+        public void ReceiveResource(Resource resource)
+        {
+            conveyerQueue.Enqueue(resource);
         }
     }
 }

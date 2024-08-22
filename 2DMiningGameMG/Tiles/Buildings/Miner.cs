@@ -19,6 +19,8 @@ namespace _2DMiningGameMG
         public bool Usable { get; set; }
         private Timer miningTimer;
         private Tile[,,] worldGrid;
+        private Vector3 outputTile;
+
         public Miner(Tile[,,] worldGrid, int x, int y, int z, Texture2D texture) : base(x, y, z, texture, true)
         {
             this.tempColor = Color.Pink;
@@ -26,6 +28,7 @@ namespace _2DMiningGameMG
             this.miningTimer = new Timer(2, Mine);
             Visible = true;
             Usable = true;
+            outputTile = GridPosition - new Vector3(-1, 0, 0);
         }
 
         public override void Update(GameTime gameTime, Vector2 globalOffset)
