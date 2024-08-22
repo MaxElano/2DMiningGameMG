@@ -39,7 +39,8 @@ namespace _2DMiningGameMG
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            activeGamestate.LoadContent(Content, _graphics);
+
+            TextureDictionary.GenerateTextures(Content);
             // TODO: use this.Content to load your game content here
         }
 

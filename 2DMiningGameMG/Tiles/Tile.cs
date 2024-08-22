@@ -12,13 +12,18 @@ namespace _2DMiningGameMG
     internal class Tile
     {
         protected enum Direction { Up, Down, Left, Right }
+
         public Vector3 GridPosition { get; private set; }
         public bool IsTransparent { get; protected set; }
+
         protected Texture2D texture;
+
         private Vector2 textureOffset;
         private Vector2 texturePosition;
         private Vector2 globalPosition;
+
         protected Resource miningResource;
+
         public Tile(int x, int y, int depth)
         {
             this.GridPosition = new Vector3(x, y, depth);

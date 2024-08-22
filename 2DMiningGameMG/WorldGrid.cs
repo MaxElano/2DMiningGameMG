@@ -1,0 +1,117 @@
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using SharpDX.Direct3D9;
+using Microsoft.Xna.Framework.Content;
+using System.Runtime.CompilerServices;
+using Microsoft.Xna.Framework.Input;
+using System.CodeDom;
+using _2DMiningGameMG.UIs.Playstate;
+
+
+namespace _2DMiningGameMG
+{
+    internal class WorldGrid
+    {
+        private Tile[,,] grid;
+        public float SquareSize { get; private set; }
+        private int topLayer;
+
+        public WorldGrid()
+        {
+            grid = CreateNewWorldGrid(25, 25, 25);
+            SquareSize = 64;
+            topLayer = 5;
+        }
+
+        private Tile[,,] CreateNewWorldGrid(int width, int height, int depth)
+        {
+            Tile[,,] grid = new Tile[width, height, depth];
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    for (int k = topLayer; k < depth; k++)
+                    {
+                        if (k == topLayer)
+                            grid[i, j, k] = new GrassTile(i, j, k);
+                        else
+                            grid[i, j, k] = (Tile)GenerateRandomUndergroundTile(i, j, k);
+                    }
+            originalHalfGridSize = new Vector2(width / 2, height / 2);
+            return grid;
+        }
+
+        private object GenerateRandomUndergroundTile(int x, int y, int z)
+        {
+            int r = randomOreGenerator.Next(10);
+            switch (r)
+            {
+                case < 1:
+                    return new GoldTile(x, y, z);
+                default:
+                    return new StoneTile(x, y, z);
+            }
+        }
+
+
+        public void PlaceTile(Vector2 gridLocation, Tile tile)
+        {
+            grid[(int)tile.GridPosition.X, (int)tile.GridPosition.Y, (int)tile.GridPosition.Z] = tile;
+        }
+
+        public Tile ReturnTileAtIndex(Vector3 index)
+        {
+            if (0 <= (int)index.X && (int)index.X < grid.GetLength(0) && 0 <= (int)index.Y && (int)index.Y < grid.GetLength(1) && 0 <= (int)index.Z && (int)index.Z < grid.GetLength(2))
+                return grid[(int)index.X, (int)index.Y, (int)index.Z];
+            else
+                return null;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+
+            position = CameraOffset - originalHalfGridSize * squareSize;
+
+            foreach (Tile t in WorldGrid)
+            {
+                if (t is not null)
+                    t.Update(gameTime, position);
+            }
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            DrawTiles(spriteBatch, drawStartLayer, grid);
+        }
+
+        protected void DrawTiles(SpriteBatch spriteBatch, int startLayer, Tile[,,] worldGrid)
+        {
+            int iMax = worldGrid.GetLength(0);
+            int jMax = worldGrid.GetLength(1);
+
+            for (int i = 0; i < iMax; i++)
+                for (int j = 0; j < jMax; j++)
+                    DrawTileColumn(spriteBatch, i, j, startLayer, worldGrid);
+        }
+        private void DrawTileColumn(SpriteBatch spriteBatch, int x, int y, int startLayer, Tile[,,] worldGrid)
+        {
+            int kMax = worldGrid.GetLength(2);
+            for (int k = startLayer; k < kMax; k++)
+            {
+                Tile tile = worldGrid[x, y, k];
+                if (tile is null)
+                    continue;
+                if (tile.IsTransparent)
+                {
+                    DrawTileColumn(spriteBatch, x, y, k + 1, worldGrid);
+                }
+
+                tile.Draw(spriteBatch);
+                break;
+            }
+        }
+    }
+}

@@ -18,99 +18,40 @@ namespace _2DMiningGameMG
     internal class World
     {
 
-        public Tile[,,] WorldGrid { get; set; }
+        
         
         public Vector2 CameraOffset { get; set; }
         private Vector2 originalHalfGridSize;
         private Vector2 position;
+
+        private WorldGrid worldGrid;
         
-        private float squareSize = 64;
         public bool mouseClicked = false;
         private Random randomOreGenerator;
         private int drawStartLayer;
-        private int topLayer;
+        
         private BuildingUI buildingUI;
 
-        public World(GraphicsDeviceManager graphics, BuildingUI buildingUI, Tile[,,] grid = null) 
+        public World(GraphicsDeviceManager graphics, BuildingUI buildingUI) 
         {
-            this.WorldGrid = grid;
             this.randomOreGenerator = new Random();
             this.drawStartLayer = 0;
-            this.topLayer = 5;
 
-            textures = new Dictionary<TextureName, Texture2D>();
             CameraOffset = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
         }
 
-        private Tile[,,] CreateNewWorldGrid(int width, int height, int depth)
-        {
-            Tile[,,] grid = new Tile[width, height, depth];
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    for (int k = topLayer; k < depth; k++)
-                    {
-                        if (k == topLayer)
-                        {
-                            grid[i, j, k] = new GrassTile(i, j, k, textures[TextureName.white]);
-                        }
-                        else if (randomOreGenerator.Next(10) < 1)
-                        {
-                            grid[i, j, k] = new GoldTile(i, j, k, textures[TextureName.white]);
-                        }
-                        else
-                        {
-                            grid[i, j, k] = new StoneTile(i, j, k, textures[TextureName.white]);
-                        }
-                    }
-            originalHalfGridSize = new Vector2(width / 2, height / 2);
-            return grid;
-        }
 
         public void Update(GameTime gameTime)
         {
-            if (WorldGrid is null)
-                WorldGrid = CreateNewWorldGrid(25, 25, 25);
-
-            position = CameraOffset - originalHalfGridSize * squareSize;
-
-            foreach (Tile t in WorldGrid)
-            {
-                if (t is not null)
-                    t.Update(gameTime, position);
-            }
+            worldGrid.Update(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            DrawTiles(spriteBatch, drawStartLayer, WorldGrid);
+            worldGrid.Draw(spriteBatch);
         }
 
-        protected void DrawTiles(SpriteBatch spriteBatch, int startLayer, Tile[,,] worldGrid)
-        {
-            int iMax = worldGrid.GetLength(0);
-            int jMax = worldGrid.GetLength(1);
 
-            for (int i = 0; i < iMax; i++)
-                for (int j = 0; j < jMax; j++)
-                    DrawTileColumn(spriteBatch, i, j, startLayer, worldGrid);
-        }
-        private void DrawTileColumn(SpriteBatch spriteBatch, int x, int y, int startLayer, Tile[,,] worldGrid)
-        {
-            int kMax = worldGrid.GetLength(2);
-            for (int k = startLayer; k < kMax; k++)
-            {
-                Tile tile = worldGrid[x, y, k];
-                if (tile is null)
-                    continue;
-                if (tile.IsTransparent)
-                {
-                    DrawTileColumn(spriteBatch, x, y, k + 1, worldGrid);
-                }
-                   
-                tile.Draw(spriteBatch);
-                break;
-            }
-        }
         public void HandleMouseClick(MouseState mouseState)
         {
             Vector2 pos = mouseState.Position.ToVector2();
@@ -121,17 +62,5 @@ namespace _2DMiningGameMG
                 PlaceBuilding(gpos, new Miner(WorldGrid, (int)gpos.X, (int)gpos.Y, topLayer - 1, textures[TextureName.miner]));
         }
 
-        public void PlaceBuilding(Vector2 gridLocation, Tile building)
-        {
-            WorldGrid[(int)building.GridPosition.X, (int)building.GridPosition.Y, (int)building.GridPosition.Z] = building;
-        }
-
-        public Tile ReturnTileAtIndex(Vector3 index)
-        {
-            if (0 <= (int)index.X && (int)index.X < WorldGrid.GetLength(0) && 0 <= (int)index.Y && (int)index.Y < WorldGrid.GetLength(1) && 0 <= (int)index.Z && (int)index.Z < WorldGrid.GetLength(2))
-                return WorldGrid[(int)index.X, (int)index.Y, (int)index.Z];
-            else
-                return null;
-        }
     }
 }
