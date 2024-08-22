@@ -40,14 +40,19 @@ namespace _2DMiningGameMG
 
         public void Mine()
         {
-            for (int i = (int)GridPosition.Z + 1; i < worldGrid.GetLength(2); i++)
+            Tile tile = worldGrid[(int)outputTile.X, (int)outputTile.Y, (int)outputTile.Z];
+            if (tile is IStoragable)
             {
-                if (worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] is null)
-                    continue;
-                else
+                for (int i = (int)GridPosition.Z + 1; i < worldGrid.GetLength(2); i++)
                 {
-                    worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] = null;
-                    break;  
+                    if (worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] is null)
+                        continue;
+                    else
+                    {
+                        worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] = null;
+                        (tile as IStoragable).ReceiveResource();
+                        break;
+                    }
                 }
             }
         }

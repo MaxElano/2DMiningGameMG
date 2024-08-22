@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace _2DMiningGameMG.Resources
+namespace _2DMiningGameMG
 {
     internal class Resource
     {

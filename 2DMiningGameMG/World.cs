@@ -17,9 +17,6 @@ namespace _2DMiningGameMG
 {
     internal class World
     {
-        enum TextureName { grass, stone, white, miner}
-
-        private Dictionary<TextureName, Texture2D> textures;
 
         public Tile[,,] WorldGrid { get; set; }
         
@@ -43,14 +40,6 @@ namespace _2DMiningGameMG
 
             textures = new Dictionary<TextureName, Texture2D>();
             CameraOffset = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
-        }
-
-        public void LoadContent(ContentManager content)
-        {
-            textures.Add(TextureName.grass, content.Load<Texture2D>("Sprites\\Tiles\\GrassTest"));
-            textures.Add(TextureName.stone, content.Load<Texture2D>("Sprites\\Tiles\\StoneTest"));
-            textures.Add(TextureName.white, content.Load<Texture2D>("Sprites\\Tiles\\WhiteTile"));
-            textures.Add(TextureName.miner, content.Load<Texture2D>("Sprites\\Tiles\\MinerTile"));
         }
 
         private Tile[,,] CreateNewWorldGrid(int width, int height, int depth)

@@ -12,9 +12,10 @@ namespace _2DMiningGameMG
 {
     internal class StoneTile : Tile
     {
-        public StoneTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture, false)
+        public StoneTile(int x, int y, int z) : base(x, y, z)
         {
-            this.tempColor = Color.Gray;
+            (this.texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneTile];
+            Initialize();
         }
     }
 }

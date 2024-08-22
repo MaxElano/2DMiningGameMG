@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using SharpDX.Direct3D9;
 
 namespace _2DMiningGameMG
 {
@@ -12,25 +13,26 @@ namespace _2DMiningGameMG
     {
         protected enum Direction { Up, Down, Left, Right }
         public Vector3 GridPosition { get; private set; }
-        public bool IsTransparent { get; private set; }
-        public Texture2D Texture { get; private set; }
+        public bool IsTransparent { get; protected set; }
+        protected Texture2D texture;
         private Vector2 textureOffset;
         private Vector2 texturePosition;
         private Vector2 globalPosition;
-        protected Color tempColor;
-        public Tile(int x, int y, int depth, Texture2D texture, bool isTransparent)
+        protected Resource miningResource;
+        public Tile(int x, int y, int depth)
         {
-            this.tempColor = Color.White;
             this.GridPosition = new Vector3(x, y, depth);
-            this.Texture = texture;
-            this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
-            this.texturePosition = new Vector2(x * (texture.Width), y * (texture.Height));
-            this.IsTransparent = isTransparent;
         }
 
         public virtual void Initialize()
         {
+            this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
+            this.texturePosition = new Vector2(GridPosition.X * (texture.Width), GridPosition.Y * (texture.Height));
+        }
 
+        public Resource GetResource()
+        {
+            return miningResource;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)
@@ -40,7 +42,8 @@ namespace _2DMiningGameMG
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, globalPosition, tempColor);
+            spriteBatch.Draw(texture, globalPosition, Color.White);
         }
+
     }
 }

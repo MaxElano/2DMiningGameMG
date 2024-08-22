@@ -12,9 +12,10 @@ namespace _2DMiningGameMG
 {
     internal class GrassTile : Tile
     {
-        public GrassTile(int x, int y, int z, Texture2D texture) : base(x, y, z, texture, false) 
+        public GrassTile(int x, int y, int z) : base(x, y, z) 
         {
-            this.tempColor = Color.Green;
+            (this.texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
+            Initialize();
         }
     }
 }
