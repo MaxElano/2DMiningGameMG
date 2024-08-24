@@ -22,6 +22,7 @@ namespace _2DMiningGameMG
         private int topLayer;
         private Random randomOreGenerator;
         private Vector2 position;
+        private Vector2 globalPosition;
         public int Height { get; private set; }
         public int Width { get; private set; }
         public int Depth { get; private set; }
@@ -31,6 +32,8 @@ namespace _2DMiningGameMG
             this.Height = 25;
             this.Width = 25;
             this.Depth = 25;
+
+            randomOreGenerator = new Random();
 
             grid = CreateNewWorldGrid(Height, Width, Depth);
             
@@ -46,22 +49,22 @@ namespace _2DMiningGameMG
                     for (int k = topLayer; k < depth; k++)
                     {
                         if (k == topLayer)
-                            grid[i, j, k] = new GrassTile(i, j, k);
+                            grid[i, j, k] = new GrassTile(new Vector3(i, j, k));
                         else
-                            grid[i, j, k] = (Tile)GenerateRandomUndergroundTile(i, j, k);
+                            grid[i, j, k] = GenerateRandomUndergroundTile(i, j, k);
                     }
             return grid;
         }
 
-        private object GenerateRandomUndergroundTile(int x, int y, int z)
+        private Tile GenerateRandomUndergroundTile(int x, int y, int z)
         {
             int r = randomOreGenerator.Next(10);
             switch (r)
             {
                 case < 1:
-                    return new GoldTile(x, y, z);
+                    return new GoldTile(new Vector3(x, y, z));
                 default:
-                    return new StoneTile(x, y, z);
+                    return new StoneTile(new Vector3(x, y, z));
             }
         }
 
@@ -84,12 +87,13 @@ namespace _2DMiningGameMG
                 return null;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Vector2 globalOffset)
         {
+            globalPosition = position + globalOffset;
             foreach (Tile t in grid)
             {
                 if (t is not null)
-                    t.Update(gameTime, position);
+                    t.Update(gameTime, globalPosition);
             }
         }
 

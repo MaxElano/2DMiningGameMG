@@ -24,9 +24,9 @@ namespace _2DMiningGameMG
 
         protected Resource miningResource;
 
-        public Tile(int x, int y, int depth)
+        public Tile(Vector3 gridLocation)
         {
-            this.GridPosition = new Vector3(x, y, depth);
+            this.GridPosition = gridLocation;
         }
 
         public virtual void Initialize()
@@ -38,6 +38,11 @@ namespace _2DMiningGameMG
         public Resource GetResource()
         {
             return miningResource;
+        }
+
+        public void SetGridLocation(Vector3 gridLocation)
+        {
+            this.GridPosition = gridLocation;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)

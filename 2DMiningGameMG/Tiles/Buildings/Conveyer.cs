@@ -24,7 +24,7 @@ namespace _2DMiningGameMG
         World world;
         float rotation;
 
-        public Conveyer(World world, float conveyerSpeed, int x, int y, int z, Texture2D texture) : base(x, y, z)
+        public Conveyer(World world, float conveyerSpeed, Vector3 gridLocation) : base(gridLocation)
         {
             this.world = world;
             this.conveyerSpeed = conveyerSpeed;

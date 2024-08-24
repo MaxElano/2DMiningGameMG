@@ -13,7 +13,7 @@ namespace _2DMiningGameMG
 {
     internal class GoldTile : Tile
     {
-        public GoldTile(int x, int y, int z) : base(x, y, z)
+        public GoldTile(Vector3 gridLocation) : base(gridLocation)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
             Initialize();

@@ -12,7 +12,7 @@ namespace _2DMiningGameMG
 {
     internal class StoneTile : Tile
     {
-        public StoneTile(int x, int y, int z) : base(x, y, z)
+        public StoneTile(Vector3 gridLocation) : base(gridLocation)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneTile];
             Initialize();

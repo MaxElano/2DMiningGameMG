@@ -34,12 +34,14 @@ namespace _2DMiningGameMG
 
             resources = new List<Resource>();
 
+            WorldGrid = new WorldGrid();
+
             CameraOffset = new Vector2(0, 0);
         }
 
         public void Update(GameTime gameTime)
         {
-            WorldGrid.Update(gameTime);
+            WorldGrid.Update(gameTime, CameraOffset);
             resources.ForEach(r => r.Update(gameTime, CameraOffset));
         }
 

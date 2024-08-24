@@ -23,7 +23,7 @@ namespace _2DMiningGameMG
         private WorldGrid worldGrid;
         private Vector3 outputTileGridLoc;
 
-        public Miner(WorldGrid worldGrid, int x, int y, int z) : base(x, y, z)
+        public Miner(WorldGrid worldGrid, Vector3 gridLocation) : base(gridLocation)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
 

@@ -19,7 +19,7 @@ namespace _2DMiningGameMG
         public BuildingUI(Vector2 screenSize)
         {
             buildables = new List<IBuildable>();
-            (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
+            (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.buildingBarBackground];
         }
 
 

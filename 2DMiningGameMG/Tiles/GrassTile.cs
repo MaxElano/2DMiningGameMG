@@ -12,7 +12,7 @@ namespace _2DMiningGameMG
 {
     internal class GrassTile : Tile
     {
-        public GrassTile(int x, int y, int z) : base(x, y, z) 
+        public GrassTile(Vector3 gridLocation) : base(gridLocation) 
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
             Initialize();

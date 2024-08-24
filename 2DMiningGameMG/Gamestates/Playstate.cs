@@ -32,6 +32,7 @@ namespace _2DMiningGameMG
             inputHelper = new InputHelper();
             buildingUI = new BuildingUI(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
             world = new World(graphics, buildingUI);
+            selectedBuildable = new Miner(world.WorldGrid, new Vector3(0, 0, 0));
         }
 
         public void Update(GameTime gameTime)
@@ -55,6 +56,7 @@ namespace _2DMiningGameMG
             if (selectedBuildable is not null && placeBuild && selectedBuildable is Tile)
             {
                 Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
+                (selectedBuildable as Tile).SetGridLocation(new Vector3(gridLoc.X, gridLoc.Y, buildLayer));
                 world.WorldGrid.PlaceTile(new Vector3(gridLoc.X, gridLoc.Y, buildLayer), (Tile)selectedBuildable);
             }
         }

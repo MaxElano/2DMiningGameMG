@@ -22,6 +22,7 @@ namespace _2DMiningGameMG
 
         protected override void Initialize()
         {
+            TextureDictionary.GenerateTextures(Content);
             // TODO: Add your initialization logic here
             activeGamestate = new Playstate();
             //screenSize = new Vector2(1920, 1080);
@@ -39,8 +40,8 @@ namespace _2DMiningGameMG
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            TextureDictionary.GenerateTextures(Content);
+            activeGamestate.LoadContent(Content, _graphics);
+            
             // TODO: use this.Content to load your game content here
         }
 
