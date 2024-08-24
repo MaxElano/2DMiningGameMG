@@ -1,5 +1,4 @@
 ﻿using _2DMiningGameMG;
-using _2DMiningGameMG.Tiles.Buildings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;

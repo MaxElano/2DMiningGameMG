@@ -18,9 +18,9 @@ namespace _2DMiningGameMG
 
         public Texture2D Texture { get; protected set; }
 
-        private Vector2 textureOffset;
+        protected Vector2 textureOffset;
         private Vector2 texturePosition;
-        private Vector2 globalPosition;
+        protected Vector2 globalPosition;
 
         protected Resource miningResource;
 

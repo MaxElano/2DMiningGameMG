@@ -16,7 +16,7 @@ namespace _2DMiningGameMG
     internal static class TextureDictionary
     {
         public enum TextureName {
-        /*Icons*/      minerIcon
+        /*Icons*/      minerIcon, conveyerIcon
         /*Resources*/, grassResource, stoneResource, goldResource
         /*Tiles*/    , grassTile, stoneTile, goldTile, minerTile, conveyerTile
         /*UIs*/      , buildingBarBackground
@@ -27,10 +27,11 @@ namespace _2DMiningGameMG
         {
             if (!Generated)
             {
-                GenerateTiles(content);
+                Textures = new Dictionary<TextureName, (Texture2D, bool)>();
+                GenerateIcons(content);
                 GenerateResources(content);
-                GenerateUIItems(content);
-                GenerateBuildables(content);
+                GenerateTiles(content);
+                GenerateUI(content);
 
                 Generated = true;
             }
@@ -39,11 +40,43 @@ namespace _2DMiningGameMG
                 Debug.WriteLine("Already Generated Textures");
             }
         }
+        private static void GenerateIcons(ContentManager content)
+        {
+            Texture2D texture;
+
+            //minerIcon
+            texture = content.Load<Texture2D>("Sprites\\Icons\\MinerIcon");
+            Textures.Add(TextureName.minerIcon, (texture, IsTextureTransparent(texture)));
+
+            //conveyerIcon
+            texture = content.Load<Texture2D>("Sprites\\Icons\\ConveyerIcon");
+            Textures.Add(TextureName.conveyerIcon, (texture, IsTextureTransparent(texture)));
+        }
+
+        private static void GenerateResources(ContentManager content)
+        {
+            Texture2D texture;
+
+            //grassResource
+            texture = content.Load<Texture2D>("Sprites\\Resources\\GrassResource");
+            Textures.Add(TextureName.grassResource, (texture, IsTextureTransparent(texture)));
+
+            //stoneResource
+            texture = content.Load<Texture2D>("Sprites\\Resources\\StoneResource");
+            Textures.Add(TextureName.stoneResource, (texture, IsTextureTransparent(texture)));
+
+            //goldResource
+            texture = content.Load<Texture2D>("Sprites\\Resources\\GoldResource");
+            Textures.Add(TextureName.goldResource, (texture, IsTextureTransparent(texture)));
+        }
+
 
         private static void GenerateTiles(ContentManager content)
         {
+            Texture2D texture;
+
             //grassTile
-            Texture2D texture = content.Load<Texture2D>("Sprites\\Tiles\\GrassTile");
+            texture = content.Load<Texture2D>("Sprites\\Tiles\\GrassTile");
             Textures.Add(TextureName.grassTile, (texture, IsTextureTransparent(texture)));
 
             //stoneTile
@@ -59,39 +92,19 @@ namespace _2DMiningGameMG
             Textures.Add(TextureName.minerTile, (texture, IsTextureTransparent(texture)));
 
             //conveyerTile
-            texture = content.Load<Texture2D>("Sprites\\Tiles\\ConeyerTile");
+            texture = content.Load<Texture2D>("Sprites\\Tiles\\ConveyerTile");
             Textures.Add(TextureName.conveyerTile, (texture, IsTextureTransparent(texture)));
         }
 
-        private static void GenerateResources(ContentManager content)
+        private static void GenerateUI(ContentManager content)
         {
+            Texture2D texture;
 
-            //grassResource
-            Texture2D texture = content.Load<Texture2D>("Sprites\\Tiles\\GrassResource");
-            Textures.Add(TextureName.grassResource, (texture, IsTextureTransparent(texture)));
-
-            //stoneResource
-            texture = content.Load<Texture2D>("Sprites\\Tiles\\StoneResource");
-            Textures.Add(TextureName.stoneResource, (texture, IsTextureTransparent(texture)));
-
-            //goldResource
-            texture = content.Load<Texture2D>("Sprites\\Tiles\\GoldResource");
-            Textures.Add(TextureName.goldResource, (texture, IsTextureTransparent(texture)));
-        }
-
-        private static void GenerateUIItems(ContentManager content)
-        {
             //buildingBarBackground
-            Texture2D texture = content.Load<Texture2D>("Sprites\\UIs\\Playstate\\BuildingBarBackground");
+            texture = content.Load<Texture2D>("Sprites\\UIs\\BuildingBarBackground");
             Textures.Add(TextureName.buildingBarBackground, (texture, IsTextureTransparent(texture)));
         }
 
-        private static void GenerateBuildables(ContentManager content)
-        {
-            //minerIcon
-            Texture2D texture = content.Load<Texture2D>("Sprites\\UIs\\Playstate\\MinerIcon");
-            Textures.Add(TextureName.buildingBarBackground, (texture, IsTextureTransparent(texture)));
-        }
         private static bool IsTextureTransparent(Texture2D texture)
         {
             Rectangle r = texture.Bounds;

@@ -10,7 +10,7 @@ using SharpDX.Direct3D9;
 using SharpDX.DirectWrite;
 using System.Diagnostics;
 
-namespace _2DMiningGameMG.Tiles.Buildings
+namespace _2DMiningGameMG
 {
     internal interface IStoragable
     {

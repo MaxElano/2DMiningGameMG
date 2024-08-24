@@ -9,7 +9,6 @@ using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
 using SharpDX.DirectWrite;
 using System.Diagnostics;
-using _2DMiningGameMG.Tiles.Buildings;
 using System.Security.Cryptography.Xml;
 
 namespace _2DMiningGameMG
