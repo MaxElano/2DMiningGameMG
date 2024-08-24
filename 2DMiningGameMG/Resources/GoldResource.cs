@@ -10,9 +10,10 @@ namespace _2DMiningGameMG
 {
     internal class GoldResource : Resource
     {
-        public GoldResource(int x, int y, int depth, Texture2D texture, bool isTransparent) : base(x, y, depth, texture, isTransparent)
+        public GoldResource(int x, int y) : base(x, y)
         {
-            this.
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.goldResource];
+            Initialize();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2DMiningGameMG.UIs
+namespace _2DMiningGameMG
 {
     internal class UIItem
     {

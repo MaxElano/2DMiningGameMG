@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Input;
 using System.CodeDom;
-using _2DMiningGameMG.UIs.Playstate;
+using SharpDX.Direct2D1.Effects;
 
 
 namespace _2DMiningGameMG
@@ -20,10 +20,20 @@ namespace _2DMiningGameMG
         private Tile[,,] grid;
         public float SquareSize { get; private set; }
         private int topLayer;
+        private Random randomOreGenerator;
+        private Vector2 position;
+        public int Height { get; private set; }
+        public int Width { get; private set; }
+        public int Depth { get; private set; }
 
         public WorldGrid()
         {
-            grid = CreateNewWorldGrid(25, 25, 25);
+            this.Height = 25;
+            this.Width = 25;
+            this.Depth = 25;
+
+            grid = CreateNewWorldGrid(Height, Width, Depth);
+            
             SquareSize = 64;
             topLayer = 5;
         }
@@ -40,7 +50,6 @@ namespace _2DMiningGameMG
                         else
                             grid[i, j, k] = (Tile)GenerateRandomUndergroundTile(i, j, k);
                     }
-            originalHalfGridSize = new Vector2(width / 2, height / 2);
             return grid;
         }
 
@@ -57,9 +66,14 @@ namespace _2DMiningGameMG
         }
 
 
-        public void PlaceTile(Vector2 gridLocation, Tile tile)
+        public void PlaceTile(Vector3 gridLocation, Tile tile)
         {
             grid[(int)tile.GridPosition.X, (int)tile.GridPosition.Y, (int)tile.GridPosition.Z] = tile;
+        }
+
+        public void RemoveTile(Vector3 gridLocation)
+        {
+            PlaceTile(gridLocation, null);
         }
 
         public Tile ReturnTileAtIndex(Vector3 index)
@@ -72,17 +86,14 @@ namespace _2DMiningGameMG
 
         public void Update(GameTime gameTime)
         {
-
-            position = CameraOffset - originalHalfGridSize * squareSize;
-
-            foreach (Tile t in WorldGrid)
+            foreach (Tile t in grid)
             {
                 if (t is not null)
                     t.Update(gameTime, position);
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch, int drawStartLayer)
         {
             DrawTiles(spriteBatch, drawStartLayer, grid);
         }

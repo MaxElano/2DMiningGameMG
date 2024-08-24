@@ -7,11 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2DMiningGameMG.UIs.Playstate
+namespace _2DMiningGameMG
 {
     internal interface IUI
     {
-        public void LoadContent(ContentManager content);
 
         public void Update(GameTime gameTime);
 

@@ -10,6 +10,7 @@ using SharpDX.Direct3D9;
 using SharpDX.DirectWrite;
 using System.Diagnostics;
 using _2DMiningGameMG.Tiles.Buildings;
+using System.Security.Cryptography.Xml;
 
 namespace _2DMiningGameMG
 {
@@ -18,17 +19,16 @@ namespace _2DMiningGameMG
         public bool Visible { get; set; }
         public bool Usable { get; set; }
         private Timer miningTimer;
-        private Tile[,,] worldGrid;
-        private Vector3 outputTile;
+        private WorldGrid worldGrid;
+        private Vector3 outputTileGridLoc;
 
-        public Miner(Tile[,,] worldGrid, int x, int y, int z, Texture2D texture) : base(x, y, z, texture, true)
+        public Miner(WorldGrid worldGrid, int x, int y, int z, Texture2D texture) : base(x, y, z)
         {
-            this.tempColor = Color.Pink;
             this.worldGrid = worldGrid;
             this.miningTimer = new Timer(2, Mine);
             Visible = true;
             Usable = true;
-            outputTile = GridPosition - new Vector3(-1, 0, 0);
+            outputTileGridLoc = GridPosition - new Vector3(-1, 0, 0);
         }
 
         public override void Update(GameTime gameTime, Vector2 globalOffset)
@@ -40,17 +40,18 @@ namespace _2DMiningGameMG
 
         public void Mine()
         {
-            Tile tile = worldGrid[(int)outputTile.X, (int)outputTile.Y, (int)outputTile.Z];
-            if (tile is IStoragable)
+            Tile outputTile = worldGrid.ReturnTileAtIndex(outputTileGridLoc);
+            if (outputTile is IStoragable)
             {
-                for (int i = (int)GridPosition.Z + 1; i < worldGrid.GetLength(2); i++)
+                for (int i = (int)GridPosition.Z + 1; i < worldGrid.Depth; i++)
                 {
-                    if (worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] is null)
+                    Tile tile = worldGrid.ReturnTileAtIndex(new Vector3(GridPosition.X, GridPosition.Y, i));
+                    if (tile is null)
                         continue;
                     else
                     {
-                        worldGrid[(int)GridPosition.X, (int)GridPosition.Y, i] = null;
-                        (tile as IStoragable).ReceiveResource();
+                        (outputTile as IStoragable).ReceiveResource(tile.GetResource());
+                        worldGrid.RemoveTile(new Vector3(GridPosition.X, GridPosition.Y, i));
                         break;
                     }
                 }

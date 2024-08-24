@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace 2DMiningGameMG.Resources
+namespace _2DMiningGameMG
 {
-    internal class StoneResource
-{
-}
+    internal class StoneResource : Resource
+    {
+        public StoneResource(int x, int y) : base(x, y)
+        {
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneResource];
+            Initialize();
+        }
+    }
 }

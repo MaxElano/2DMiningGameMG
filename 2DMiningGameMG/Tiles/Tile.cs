@@ -16,7 +16,7 @@ namespace _2DMiningGameMG
         public Vector3 GridPosition { get; private set; }
         public bool IsTransparent { get; protected set; }
 
-        protected Texture2D texture;
+        public Texture2D Texture { get; protected set; }
 
         private Vector2 textureOffset;
         private Vector2 texturePosition;
@@ -31,8 +31,8 @@ namespace _2DMiningGameMG
 
         public virtual void Initialize()
         {
-            this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
-            this.texturePosition = new Vector2(GridPosition.X * (texture.Width), GridPosition.Y * (texture.Height));
+            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2);
+            this.texturePosition = new Vector2(GridPosition.X * (Texture.Width), GridPosition.Y * (Texture.Height));
         }
 
         public Resource GetResource()
@@ -47,7 +47,7 @@ namespace _2DMiningGameMG
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, Color.White);
+            spriteBatch.Draw(Texture, globalPosition, Color.White);
         }
 
     }

@@ -15,7 +15,7 @@ namespace _2DMiningGameMG
     {
         public GoldTile(int x, int y, int z) : base(x, y, z)
         {
-            (this.texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
             Initialize();
         }
     }

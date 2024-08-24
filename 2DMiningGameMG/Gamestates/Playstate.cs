@@ -1,8 +1,10 @@
-﻿using _2DMiningGameMG.UIs.Playstate;
+﻿using _2DMiningGameMG;
+using _2DMiningGameMG.Tiles.Buildings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct2D1.Effects;
 using System;
 
 namespace _2DMiningGameMG
@@ -13,10 +15,17 @@ namespace _2DMiningGameMG
         float cameraSpeed = 1f;
         InputHelper inputHelper;
         BuildingUI buildingUI;
+        IBuildable selectedBuildable;
+        int buildLayer;
 
-        public Playstate()
+        public Playstate(InputHelper inputHelper = null)
         {
-            
+            if (inputHelper == null)
+                this.inputHelper = new InputHelper();
+            else
+                this.inputHelper = inputHelper;
+
+            buildLayer = 4;
         }
 
         public void LoadContent(ContentManager content, GraphicsDeviceManager graphics)
@@ -24,14 +33,12 @@ namespace _2DMiningGameMG
             inputHelper = new InputHelper();
             buildingUI = new BuildingUI(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
             world = new World(graphics, buildingUI);
-            buildingUI.LoadContent(content);
-
-            world.LoadContent(content);
         }
 
         public void Update(GameTime gameTime)
         {
-            inputHelper.UpdatePlayState(gameTime, world);
+            UpdateControls(gameTime);
+            inputHelper.Update();
             world.Update(gameTime);
         }
 
@@ -41,5 +48,16 @@ namespace _2DMiningGameMG
             buildingUI.Draw(spriteBatch, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
         }
 
+        public void UpdateControls(GameTime gameTime)
+        {
+            world.CameraOffset += inputHelper.CameraMovement(gameTime);
+
+            (bool placeBuild, Vector2 placeLoc) = inputHelper.PlaceBuilding();
+            if (selectedBuildable is not null && placeBuild && selectedBuildable is Tile)
+            {
+                Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
+                world.WorldGrid.PlaceTile(new Vector3(gridLoc.X, gridLoc.Y, buildLayer), (Tile)selectedBuildable);
+            }
+        }
     }
 }

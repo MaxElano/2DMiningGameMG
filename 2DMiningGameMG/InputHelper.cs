@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace _2DMiningGameMG
 {
@@ -14,8 +15,14 @@ namespace _2DMiningGameMG
         MouseState mouseState;
         MouseState prevMouseState;
 
+        Keys cameraUp = Keys.W;
+        Keys cameraDown = Keys.S;
+        Keys cameraLeft = Keys.A;
+        Keys cameraRight = Keys.D;
+
+
         public InputHelper() { }
-        public void UpdateStates()
+        public void Update()
         {
             prevKeyboardState = keyboardState;
             keyboardState = Keyboard.GetState();
@@ -23,20 +30,25 @@ namespace _2DMiningGameMG
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
         }
-        public void UpdatePlayState(GameTime gameTime, World world)
-        {
-            UpdateStates();
-            if (keyboardState.IsKeyDown(Keys.W))
-                world.CameraOffset += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (keyboardState.IsKeyDown(Keys.S))
-                world.CameraOffset -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (keyboardState.IsKeyDown(Keys.A))
-                world.CameraOffset += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-            if (keyboardState.IsKeyDown(Keys.D))
-                world.CameraOffset -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-            if (LeftButtonJustPressed()) //Change this to influence the tile or let world influence the tile and this just tell world that it is pressed
-                world.HandleMouseClick(mouseState);
 
+        public Vector2 CameraMovement(GameTime gameTime)
+        {
+            Vector2 mov = new Vector2();
+            if (keyboardState.IsKeyDown(Keys.W))
+                mov += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
+            if (keyboardState.IsKeyDown(Keys.S))
+                mov -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
+            if (keyboardState.IsKeyDown(Keys.A))
+                mov += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
+            if (keyboardState.IsKeyDown(Keys.D))
+                mov -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
+
+            return mov;
+        }
+
+        public (bool, Vector2) PlaceBuilding()
+        {
+            return (LeftButtonJustPressed(), new Vector2(mouseState.Position.X, mouseState.Position.Y));
         }
 
         public bool LeftButtonJustPressed()

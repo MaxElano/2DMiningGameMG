@@ -14,7 +14,7 @@ namespace _2DMiningGameMG
     {
         public StoneTile(int x, int y, int z) : base(x, y, z)
         {
-            (this.texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneTile];
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneTile];
             Initialize();
         }
     }

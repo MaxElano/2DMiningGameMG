@@ -14,7 +14,7 @@ namespace _2DMiningGameMG
     {
         public GrassTile(int x, int y, int z) : base(x, y, z) 
         {
-            (this.texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
             Initialize();
         }
     }

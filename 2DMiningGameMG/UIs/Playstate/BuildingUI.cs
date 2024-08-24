@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _2DMiningGameMG.UIs.Playstate
+namespace _2DMiningGameMG
 {
     internal class BuildingUI : IUI
     {
@@ -20,12 +20,9 @@ namespace _2DMiningGameMG.UIs.Playstate
         public BuildingUI(Vector2 screenSize)
         {
             buildables = new List<IBuildable>();
+            (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
         }
 
-        public void LoadContent(ContentManager content)
-        {
-            buildingBarBackground = content.Load<Texture2D>("Sprites\\UIs\\Playstate\\BuildingBarBackground");
-        }
 
         public void Update(GameTime gameTime)
         {

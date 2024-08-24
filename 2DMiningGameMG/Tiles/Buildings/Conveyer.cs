@@ -21,9 +21,8 @@ namespace _2DMiningGameMG.Tiles.Buildings
         Timer pushTimer;
         World world;
 
-        public Conveyer(World world, float conveyerSpeed, int x, int y, int z, Texture2D texture) : base(x, y, z, texture, false)
+        public Conveyer(World world, float conveyerSpeed, int x, int y, int z, Texture2D texture) : base(x, y, z)
         {
-            this.tempColor = Color.Green;
             this.world = world;
             this.conveyerSpeed = conveyerSpeed;
             pushTimer = new Timer(conveyerSpeed / 60, PushItemFromQueue);
@@ -67,7 +66,7 @@ namespace _2DMiningGameMG.Tiles.Buildings
                     break;
             }
 
-            Tile tile = world.ReturnTileAtIndex(GridPosition + difference);
+            Tile tile = world.WorldGrid.ReturnTileAtIndex(GridPosition + difference);
             if (tile is IStoragable && (tile as IStoragable).CanReceive)
             {
                 (tile as IStoragable).ReceiveResource(res);

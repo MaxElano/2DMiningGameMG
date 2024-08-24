@@ -10,36 +10,31 @@ namespace _2DMiningGameMG
 {
     internal class Resource
     {
-        //public Vector3 GridPosition { get; private set; }
-        //public bool IsTransparent { get; private set; }
-        private Texture2D texture;
+        public bool IsTransparent { get; protected set; }
+        public Texture2D Texture { get; protected set; }
         private Vector2 textureOffset;
-        private Vector2 texturePosition;
+        private Vector2 position;
         private Vector2 globalPosition;
         protected Color tempColor;
-        public Resource(int x, int y, int depth, Texture2D texture, bool isTransparent)
+        public Resource(int x, int y)
         {
             this.tempColor = Color.White;
-            //this.GridPosition = new Vector3(x, y, depth);
-            this.texture = texture;
-            this.textureOffset = new Vector2(texture.Width / 2, texture.Height / 2);
-            this.texturePosition = new Vector2(x * (texture.Width), y * (texture.Height));
-            //this.IsTransparent = isTransparent;
+            this.position = new Vector2(x, y);
         }
 
         public virtual void Initialize()
         {
-
+            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2);
         }
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)
         {
-            globalPosition = globalOffset + texturePosition - textureOffset;
+            globalPosition = globalOffset + position - textureOffset;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, globalPosition, tempColor);
+            spriteBatch.Draw(Texture, globalPosition, tempColor);
         }
     }
 }
