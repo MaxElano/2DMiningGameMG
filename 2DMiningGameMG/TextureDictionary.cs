@@ -15,10 +15,11 @@ namespace _2DMiningGameMG
 {
     internal static class TextureDictionary
     {
-        public enum TextureName { 
-        /*Tiles*/     grassTile, stoneTile, goldTile, minerTile, conveyerTile,
-        /*Resources*/ grassResource, stoneResource, goldResource,
-        /*UI Items*/  buildingBarBackground
+        public enum TextureName {
+        /*Icons*/      minerIcon
+        /*Resources*/, grassResource, stoneResource, goldResource
+        /*Tiles*/    , grassTile, stoneTile, goldTile, minerTile, conveyerTile
+        /*UIs*/      , buildingBarBackground
         }
         public static Dictionary<TextureName, (Texture2D, bool)> Textures { get; private set; }
         private static bool Generated { get; set; }
@@ -29,6 +30,7 @@ namespace _2DMiningGameMG
                 GenerateTiles(content);
                 GenerateResources(content);
                 GenerateUIItems(content);
+                GenerateBuildables(content);
 
                 Generated = true;
             }
@@ -84,6 +86,12 @@ namespace _2DMiningGameMG
             Textures.Add(TextureName.buildingBarBackground, (texture, IsTextureTransparent(texture)));
         }
 
+        private static void GenerateBuildables(ContentManager content)
+        {
+            //minerIcon
+            Texture2D texture = content.Load<Texture2D>("Sprites\\UIs\\Playstate\\MinerIcon");
+            Textures.Add(TextureName.buildingBarBackground, (texture, IsTextureTransparent(texture)));
+        }
         private static bool IsTextureTransparent(Texture2D texture)
         {
             Rectangle r = texture.Bounds;

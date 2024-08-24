@@ -8,11 +8,12 @@ using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
 
-namespace _2DMiningGameMG.Tiles.Buildings
+namespace _2DMiningGameMG
 {
     internal interface IBuildable
     {
         bool Visible { get; set; }
         bool Usable { get; set; }
+        public Texture2D UIIcon { get; protected set; }
     }
 }

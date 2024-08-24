@@ -18,12 +18,16 @@ namespace _2DMiningGameMG
     {
         public bool Visible { get; set; }
         public bool Usable { get; set; }
+        public Texture2D UIIcon { get; set; }
+
         private Timer miningTimer;
         private WorldGrid worldGrid;
         private Vector3 outputTileGridLoc;
 
-        public Miner(WorldGrid worldGrid, int x, int y, int z, Texture2D texture) : base(x, y, z)
+        public Miner(WorldGrid worldGrid, int x, int y, int z) : base(x, y, z)
         {
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
+
             this.worldGrid = worldGrid;
             this.miningTimer = new Timer(2, Mine);
             Visible = true;
