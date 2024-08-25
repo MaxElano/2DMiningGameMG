@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework.Input;
 using System.CodeDom;
 using SharpDX.Direct2D1.Effects;
+using System.Reflection;
 
 
 namespace _2DMiningGameMG
@@ -71,14 +72,13 @@ namespace _2DMiningGameMG
 
         public void PlaceTile(Vector3 gridLocation, Tile tile)
         {
-            grid[(int)tile.GridPosition.X, (int)tile.GridPosition.Y, (int)tile.GridPosition.Z] = tile;
+            if (0 <= (int)gridLocation.X && (int)gridLocation.X < grid.GetLength(0) && 0 <= (int)gridLocation.Y && (int)gridLocation.Y < grid.GetLength(1) && 0 <= (int)gridLocation.Z && (int)gridLocation.Z < grid.GetLength(2))
+                grid[(int)tile.GridPosition.X, (int)tile.GridPosition.Y, (int)tile.GridPosition.Z] = tile;
         }
-
         public void RemoveTile(Vector3 gridLocation)
         {
             PlaceTile(gridLocation, null);
         }
-
         public Tile ReturnTileAtIndex(Vector3 index)
         {
             if (0 <= (int)index.X && (int)index.X < grid.GetLength(0) && 0 <= (int)index.Y && (int)index.Y < grid.GetLength(1) && 0 <= (int)index.Z && (int)index.Z < grid.GetLength(2))

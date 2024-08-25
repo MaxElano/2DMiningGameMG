@@ -12,13 +12,13 @@ namespace _2DMiningGameMG
     internal class BuildingUI : IUI
     {
         private Texture2D buildingBarBackground;
-        private List<IBuildable> buildables;
+        private List<UIItem> buildables;
         private float buildablesScaling = 0.5f;
         private float distanceBetweenBuildables = 10f;
 
         public BuildingUI(Vector2 screenSize)
         {
-            buildables = new List<IBuildable>();
+            buildables = new List<UIItem>();
             (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.buildingBarBackground];
         }
 
@@ -36,7 +36,7 @@ namespace _2DMiningGameMG
             {
                 if (buildables[i].Usable)
                 {
-                    Texture2D texture = (buildables[i] as Tile).Texture;
+                    Texture2D texture = buildables[i].Texture;
                     float xCoord = screenSize.X / 2 + (i - buildables.Count / 2) * (texture.Width * buildablesScaling + distanceBetweenBuildables);
                     float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - texture.Height / 2 * buildablesScaling;
                     spriteBatch.Draw(texture, new Vector2(xCoord, yCoord), Color.White);
@@ -44,7 +44,7 @@ namespace _2DMiningGameMG
             }
         }
 
-        public void AddBuildable(IBuildable buildable)
+        public void AddBuildable(UIItem buildable)
         {
             buildables.Add(buildable);
         }

@@ -25,7 +25,7 @@ namespace _2DMiningGameMG
 
         public Miner(WorldGrid worldGrid, Vector3 gridLocation) : base(gridLocation)
         {
-            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.minerTile];
 
             this.worldGrid = worldGrid;
             this.miningTimer = new Timer(2, Mine);

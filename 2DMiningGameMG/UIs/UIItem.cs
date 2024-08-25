@@ -11,17 +11,38 @@ namespace _2DMiningGameMG
 {
     internal class UIItem
     {
+        public enum BuildableName { Miner, Conveyer}
+        public BuildableName name;
+        public bool Usable { get; private set; }
+        public bool Visible { get; private set; }
         private Vector2 centrePosition;
-        private Texture2D texture;
-        public UIItem(Vector2 centrePosition, Texture2D texture) 
+        public Texture2D Texture { get; private set; }
+        public UIItem(Vector2 centrePosition, BuildableName name) 
         { 
             this.centrePosition = centrePosition;
-            this.texture = texture;
+
+            Usable = true;
+            Visible = true;
+
+            SetTexture();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, centrePosition, Color.White);
+            spriteBatch.Draw(Texture, centrePosition, Color.White);
+        }
+
+        private void SetTexture()
+        {
+            switch (name)
+            {
+                case BuildableName.Miner:
+                    (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.minerIcon];
+                    break;
+                case BuildableName.Conveyer:
+                    (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerIcon];
+                    break;
+            }
         }
     }
 }
