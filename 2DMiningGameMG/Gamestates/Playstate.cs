@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1.Effects;
 using System;
+using static _2DMiningGameMG.UIItem;
 
 namespace _2DMiningGameMG
 {
@@ -14,7 +15,7 @@ namespace _2DMiningGameMG
         float cameraSpeed = 1f;
         InputHelper inputHelper;
         BuildingUI buildingUI;
-        IBuildable selectedBuildable;
+        UIItem selectedBuildable;
         int buildLayer;
 
         public Playstate(InputHelper inputHelper = null)
@@ -32,7 +33,7 @@ namespace _2DMiningGameMG
             inputHelper = new InputHelper();
             buildingUI = new BuildingUI(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
             world = new World(graphics, buildingUI);
-            selectedBuildable = new Miner(world.WorldGrid, new Vector3(0, 0, 0));
+            selectedBuildable = new UIItem(BuildableName.Miner);
         }
 
         public void Update(GameTime gameTime)
@@ -53,11 +54,24 @@ namespace _2DMiningGameMG
             world.CameraOffset += inputHelper.CameraMovement(gameTime);
 
             (bool placeBuild, Vector2 placeLoc) = inputHelper.PlaceBuilding();
-            if (selectedBuildable is not null && placeBuild && selectedBuildable is Tile)
+            if (selectedBuildable is not null && placeBuild && selectedBuildable.Usable)
             {
                 Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
-                (selectedBuildable as Tile).SetGridLocation(new Vector3(gridLoc.X, gridLoc.Y, buildLayer));
-                world.WorldGrid.PlaceTile(new Vector3(gridLoc.X, gridLoc.Y, buildLayer), (Tile)selectedBuildable);
+                Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
+                world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+            }
+        }
+
+        private Tile CreateCorrectTileFromUI(Vector3 location, BuildableName name)
+        {
+            switch (name) 
+            { 
+                case BuildableName.Miner:
+                    return new Miner(world.WorldGrid, location);
+                case BuildableName.Conveyer:
+                    return new Conveyer(world, 1f, location);
+                default:
+                    return null;
             }
         }
     }

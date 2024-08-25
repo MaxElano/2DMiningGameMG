@@ -17,10 +17,8 @@ namespace _2DMiningGameMG
         public bool Visible { get; private set; }
         private Vector2 centrePosition;
         public Texture2D Texture { get; private set; }
-        public UIItem(Vector2 centrePosition, BuildableName name) 
+        public UIItem(BuildableName name) 
         { 
-            this.centrePosition = centrePosition;
-
             Usable = true;
             Visible = true;
 
@@ -43,6 +41,11 @@ namespace _2DMiningGameMG
                     (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerIcon];
                     break;
             }
+        }
+
+        public void SetLocation(Vector2 location)
+        {
+            centrePosition = location;
         }
     }
 }

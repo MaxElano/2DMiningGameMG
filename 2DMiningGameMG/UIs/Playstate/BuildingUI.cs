@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,15 @@ namespace _2DMiningGameMG
         private List<UIItem> buildables;
         private float buildablesScaling = 0.5f;
         private float distanceBetweenBuildables = 10f;
+        private Vector2 screenSize;
 
         public BuildingUI(Vector2 screenSize)
         {
+            this.screenSize = screenSize;
+
             buildables = new List<UIItem>();
+            InitializeIcons();
+
             (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.buildingBarBackground];
         }
 
@@ -32,15 +38,19 @@ namespace _2DMiningGameMG
         {
             spriteBatch.Draw(buildingBarBackground, new Vector2(screenSize.X / 2 - buildingBarBackground.Width / 2, screenSize.Y - buildingBarBackground.Height), Color.White);
 
-            for (int i = 0; i < buildables.Count; i++) 
+            buildables.ForEach(b => { if (b.Visible) b.Draw(spriteBatch); });
+        }
+
+        private void InitializeIcons()
+        {
+            AddBuildable(new UIItem(UIItem.BuildableName.Miner));
+
+            for (int i = 0; i < buildables.Count; i++)
             {
-                if (buildables[i].Usable)
-                {
-                    Texture2D texture = buildables[i].Texture;
-                    float xCoord = screenSize.X / 2 + (i - buildables.Count / 2) * (texture.Width * buildablesScaling + distanceBetweenBuildables);
-                    float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - texture.Height / 2 * buildablesScaling;
-                    spriteBatch.Draw(texture, new Vector2(xCoord, yCoord), Color.White);
-                }
+                Texture2D texture = buildables[i].Texture;
+                float xCoord = screenSize.X / 2 + (i - buildables.Count / 2) * (texture.Width * buildablesScaling + distanceBetweenBuildables);
+                float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - texture.Height / 2 * buildablesScaling;
+                buildables[i].SetLocation(new Vector2(xCoord, yCoord));
             }
         }
 
