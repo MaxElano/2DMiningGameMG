@@ -17,6 +17,7 @@ namespace _2DMiningGameMG
         public bool Visible { get; private set; }
         private Vector2 centrePosition;
         public Texture2D Texture { get; private set; }
+        public Rectangle rectangle { get; private set; }
         public UIItem(BuildableName name) 
         { 
             Usable = true;
@@ -47,6 +48,7 @@ namespace _2DMiningGameMG
         public void SetLocation(Vector2 location)
         {
             centrePosition = location;
+            rectangle = new Rectangle((int)centrePosition.X - Texture.Width / 2, (int)centrePosition.Y - Texture.Height / 2, Texture.Width, Texture.Height);
         }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct2D1.Effects;
+using SharpDX.DirectWrite;
 using System;
 using static _2DMiningGameMG.UIItem;
 
@@ -17,7 +18,7 @@ namespace _2DMiningGameMG
         BuildingUI buildingUI;
         UIItem selectedBuildable;
         int buildLayer;
-
+        SpriteBatch spriteBatch;
         public Playstate(InputHelper inputHelper = null)
         {
             if (inputHelper == null)
@@ -45,6 +46,7 @@ namespace _2DMiningGameMG
 
         public void Draw(SpriteBatch spriteBatch, GraphicsDeviceManager graphics)
         {
+            this.spriteBatch = spriteBatch;
             world.Draw(spriteBatch);
             buildingUI.Draw(spriteBatch, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
         }
@@ -53,18 +55,45 @@ namespace _2DMiningGameMG
         {
             world.CameraOffset += inputHelper.CameraMovement(gameTime);
 
+            HandleClick();
+        }
+
+        private void HandleClick()
+        {
             (bool placeBuild, Vector2 placeLoc) = inputHelper.PlaceBuilding();
+
             if (selectedBuildable is not null && placeBuild && selectedBuildable.Usable)
             {
-                Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
-                Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
-                world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+                if (ClickOnIcon(placeLoc))
+                    return;
+                if (ClickOnGrid(placeLoc))
+                    return;
 
-                if (selectedBuildable.name == BuildableName.Miner)
-                    selectedBuildable = new UIItem(BuildableName.Conveyer);
-                else
-                    selectedBuildable = new UIItem(BuildableName.Miner);
+
             }
+        }
+
+        private bool ClickOnIcon(Vector2 placeLoc)
+        {
+            UIItem newSelect = buildingUI.CheckForClickOnIcon(placeLoc);
+            if (newSelect is not null)
+            {
+                selectedBuildable = newSelect;
+                return true;
+            }
+            return false;
+        }
+
+        private bool ClickOnGrid(Vector2 placeLoc)
+        {
+            Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
+            Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
+            world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+
+            if (selectedBuildable.name == BuildableName.Miner)
+                selectedBuildable = new UIItem(BuildableName.Conveyer);
+            else
+                selectedBuildable = new UIItem(BuildableName.Miner);
         }
 
         private Tile CreateCorrectTileFromUI(Vector3 location, BuildableName name)

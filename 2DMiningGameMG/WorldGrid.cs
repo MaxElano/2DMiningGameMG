@@ -130,5 +130,11 @@ namespace _2DMiningGameMG
                 break;
             }
         }
+
+        public bool CheckInGrid(Vector3 gridLocation)
+        {
+            bool inGrid = (0 <= (int)gridLocation.X && (int)gridLocation.X < grid.GetLength(0) && 0 <= (int)gridLocation.Y && (int)gridLocation.Y < grid.GetLength(1) && 0 <= (int)gridLocation.Z && (int)gridLocation.Z < grid.GetLength(2));
+            return inGrid;
+        }
     }
 }

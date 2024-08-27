@@ -15,7 +15,7 @@ namespace _2DMiningGameMG
         private Texture2D buildingBarBackground;
         private List<UIItem> buildables;
         private float buildablesScaling = 0.5f;
-        private float distanceBetweenBuildables = 10f;
+        private float distanceBetweenBuildables = 40f;
         private Vector2 screenSize;
 
         public BuildingUI(Vector2 screenSize)
@@ -46,14 +46,23 @@ namespace _2DMiningGameMG
         private void InitializeIcons()
         {
             AddBuildable(new UIItem(UIItem.BuildableName.Miner));
+            AddBuildable(new UIItem(UIItem.BuildableName.Conveyer));
 
             for (int i = 0; i < buildables.Count; i++)
             {
                 Texture2D texture = buildables[i].Texture;
                 float xCoord = screenSize.X / 2 + (i - buildables.Count / 2) * (texture.Width * buildablesScaling + distanceBetweenBuildables);
-                float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - texture.Height / 2 * buildablesScaling;
+                float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - (texture.Height / 2) * buildablesScaling;
                 buildables[i].SetLocation(new Vector2(xCoord, yCoord));
             }
+        }
+
+        public UIItem CheckForClickOnIcon(Vector2 clickLocation)
+        {
+            foreach (UIItem item in buildables)
+                if (item.rectangle.Contains(clickLocation.X, clickLocation.Y))
+                    return item;
+            return null;
         }
 
         public void AddBuildable(UIItem buildable)
