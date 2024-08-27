@@ -23,9 +23,11 @@ namespace _2DMiningGameMG
             this.screenSize = screenSize;
 
             buildables = new List<UIItem>();
-            InitializeIcons();
+            
 
             (this.buildingBarBackground, _) = TextureDictionary.Textures[TextureDictionary.TextureName.buildingBarBackground];
+
+            InitializeIcons();
         }
 
 

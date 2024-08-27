@@ -34,13 +34,13 @@ namespace _2DMiningGameMG
         public Vector2 CameraMovement(GameTime gameTime)
         {
             Vector2 mov = new Vector2();
-            if (keyboardState.IsKeyDown(Keys.W))
+            if (keyboardState.IsKeyDown(cameraUp))
                 mov += new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (keyboardState.IsKeyDown(Keys.S))
+            if (keyboardState.IsKeyDown(cameraDown))
                 mov -= new Vector2(0, cameraSpeed * gameTime.ElapsedGameTime.Milliseconds);
-            if (keyboardState.IsKeyDown(Keys.A))
+            if (keyboardState.IsKeyDown(cameraLeft))
                 mov += new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
-            if (keyboardState.IsKeyDown(Keys.D))
+            if (keyboardState.IsKeyDown(cameraRight))
                 mov -= new Vector2(cameraSpeed * gameTime.ElapsedGameTime.Milliseconds, 0);
 
             return mov;
