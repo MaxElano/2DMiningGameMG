@@ -66,6 +66,7 @@ namespace _2DMiningGameMG
         {
             screenLocation -= CameraOffset;
             screenLocation /= WorldGrid.SquareSize;
+            screenLocation.Floor();
             return screenLocation;
         }
     }

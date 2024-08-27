@@ -21,6 +21,7 @@ namespace _2DMiningGameMG
         { 
             Usable = true;
             Visible = true;
+            this.name = name;
 
             SetTexture();
         }

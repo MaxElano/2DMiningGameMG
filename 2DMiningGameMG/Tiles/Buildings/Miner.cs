@@ -32,8 +32,12 @@ namespace _2DMiningGameMG
             Visible = true;
             Usable = true;
             outputTileGridLoc = GridPosition - new Vector3(-1, 0, 0);
+            Initialize();
         }
-
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, globalPosition, Color.White);
+        }
         public override void Update(GameTime gameTime, Vector2 globalOffset)
         {
             miningTimer.Update(gameTime);

@@ -111,7 +111,7 @@ namespace _2DMiningGameMG
             int size = r.Width * r.Height;
             Color[] buffer = new Color[size];
             texture.GetData(0, r, buffer, 0, size);
-            return buffer.All(c => c == Color.Transparent);
+            return buffer.Any(c => c == Color.Transparent);
         }
     }
 }

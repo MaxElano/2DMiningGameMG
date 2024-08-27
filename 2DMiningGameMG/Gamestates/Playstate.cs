@@ -59,6 +59,11 @@ namespace _2DMiningGameMG
                 Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
                 Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
                 world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+
+                if (selectedBuildable.name == BuildableName.Miner)
+                    selectedBuildable = new UIItem(BuildableName.Conveyer);
+                else
+                    selectedBuildable = new UIItem(BuildableName.Miner);
             }
         }
 

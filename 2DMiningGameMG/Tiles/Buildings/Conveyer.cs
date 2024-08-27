@@ -26,11 +26,16 @@ namespace _2DMiningGameMG
 
         public Conveyer(World world, float conveyerSpeed, Vector3 gridLocation) : base(gridLocation)
         {
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerTile];
+            this.direction = Direction.Right;
+            conveyerQueue = new Queue<Resource>();
             this.world = world;
             this.conveyerSpeed = conveyerSpeed;
             pushTimer = new Timer(conveyerSpeed / 60, PushItemFromQueue);
             Visible = true;
             Usable = true;
+
+            Initialize();
         }
 
         public override void Update(GameTime gameTime, Vector2 globalOffset)
@@ -42,7 +47,7 @@ namespace _2DMiningGameMG
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, globalPosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, SetRotation(direction), globalPosition + textureOffset, 1f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(Texture, globalPosition + textureOffset, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, SetRotation(direction), textureOffset, 1f, SpriteEffects.None, 1f);
         }
 
         public void PushItemFromQueue()
@@ -91,15 +96,15 @@ namespace _2DMiningGameMG
             switch (direction)
             {
                 case Direction.Up:
-                    return 270;
+                    return 270/360f;
                 case Direction.Down:
-                    return 90;
+                    return 90/360f;
                 case Direction.Right:
-                    return 0;    
+                    return 0f;    
                 case Direction.Left:
-                    return 180;
+                    return 180/360f;
                 default:
-                    return 0;
+                    return 0f;
             }
         }
     }

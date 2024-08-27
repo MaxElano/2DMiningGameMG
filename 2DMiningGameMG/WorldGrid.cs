@@ -36,10 +36,12 @@ namespace _2DMiningGameMG
 
             randomOreGenerator = new Random();
 
-            grid = CreateNewWorldGrid(Height, Width, Depth);
-            
             SquareSize = 64;
             topLayer = 5;
+
+
+
+            grid = CreateNewWorldGrid(Height, Width, Depth);
         }
 
         private Tile[,,] CreateNewWorldGrid(int width, int height, int depth)
