@@ -18,6 +18,7 @@ namespace _2DMiningGameMG
         private Vector2 centrePosition;
         public Texture2D Texture { get; private set; }
         public Rectangle rectangle { get; private set; }
+        public float BuildablesScaling = 0.5f;
         public UIItem(BuildableName name) 
         { 
             Usable = true;

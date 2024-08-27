@@ -14,7 +14,6 @@ namespace _2DMiningGameMG
     {
         private Texture2D buildingBarBackground;
         private List<UIItem> buildables;
-        private float buildablesScaling = 0.5f;
         private float distanceBetweenBuildables = 40f;
         private Vector2 screenSize;
 
