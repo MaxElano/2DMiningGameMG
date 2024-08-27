@@ -68,8 +68,6 @@ namespace _2DMiningGameMG
                     return;
                 if (ClickOnGrid(placeLoc))
                     return;
-
-
             }
         }
 
@@ -88,12 +86,12 @@ namespace _2DMiningGameMG
         {
             Vector2 gridLoc = world.ScreenToGridLocation(placeLoc);
             Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
-            world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
-
-            if (selectedBuildable.name == BuildableName.Miner)
-                selectedBuildable = new UIItem(BuildableName.Conveyer);
-            else
-                selectedBuildable = new UIItem(BuildableName.Miner);
+            if (world.WorldGrid.CheckInGrid(loc))
+            {
+                world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+                return true;
+            }
+            return false;
         }
 
         private Tile CreateCorrectTileFromUI(Vector3 location, BuildableName name)
