@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,19 +19,20 @@ namespace _2DMiningGameMG
         private Vector2 centrePosition;
         public Texture2D Texture { get; private set; }
         public Rectangle rectangle { get; private set; }
-        public float BuildablesScaling = 0.5f;
+
+        public float buildableScaling { get; private set; }
         public UIItem(BuildableName name) 
         { 
             Usable = true;
             Visible = true;
             this.name = name;
-
+            this.buildableScaling = 0.9f;
             SetTexture();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, centrePosition, Color.White);
+            spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, new Vector2(Texture.Width, Texture.Height), buildableScaling, SpriteEffects.None, 1);
         }
 
         private void SetTexture()
@@ -46,10 +48,13 @@ namespace _2DMiningGameMG
             }
         }
 
-        public void SetLocation(Vector2 location)
+        public void SetLocation(Vector2 screenSize, int buildablesCount, int index, float buildingBarBackgroundHeight, float distanceBetweenBuildables)
         {
-            centrePosition = location;
-            rectangle = new Rectangle((int)centrePosition.X - Texture.Width / 2, (int)centrePosition.Y - Texture.Height / 2, Texture.Width, Texture.Height);
+            float xCoord = screenSize.X / 2 + (index - buildablesCount / 2) * (Texture.Width * buildableScaling + distanceBetweenBuildables);
+            float yCoord = screenSize.Y - buildingBarBackgroundHeight / 2 - (Texture.Height / 2) * buildableScaling;
+            centrePosition = new Vector2(xCoord, yCoord);
+            rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width / 2 * buildableScaling)), (int)(centrePosition.Y - (Texture.Height / 2 * buildableScaling)), (int)(Texture.Width * buildableScaling), (int)(Texture.Height * buildableScaling));
         }
+        
     }
 }

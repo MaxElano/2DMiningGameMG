@@ -16,10 +16,12 @@ namespace _2DMiningGameMG
         private Vector2 position;
         private Vector2 globalPosition;
         protected Color tempColor;
-        public Resource(int x, int y)
+        private Tile container;
+        public Resource(int x, int y, Tile container)
         {
             this.tempColor = Color.White;
             this.position = new Vector2(x, y);
+            this.container = container;
         }
 
         public virtual void Initialize()

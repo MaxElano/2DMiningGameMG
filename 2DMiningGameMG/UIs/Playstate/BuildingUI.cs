@@ -16,7 +16,7 @@ namespace _2DMiningGameMG
         private List<UIItem> buildables;
         private float distanceBetweenBuildables = 40f;
         private Vector2 screenSize;
-
+        
         public BuildingUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
@@ -49,10 +49,7 @@ namespace _2DMiningGameMG
 
             for (int i = 0; i < buildables.Count; i++)
             {
-                Texture2D texture = buildables[i].Texture;
-                float xCoord = screenSize.X / 2 + (i - buildables.Count / 2) * (texture.Width * buildablesScaling + distanceBetweenBuildables);
-                float yCoord = screenSize.Y - buildingBarBackground.Height / 2 - (texture.Height / 2) * buildablesScaling;
-                buildables[i].SetLocation(new Vector2(xCoord, yCoord));
+                buildables[i].SetLocation(screenSize, buildables.Count, i, buildingBarBackground.Height, distanceBetweenBuildables);
             }
         }
 
