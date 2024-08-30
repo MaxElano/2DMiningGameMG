@@ -51,9 +51,9 @@ namespace _2DMiningGameMG
         public void SetLocation(Vector2 screenSize, int buildablesCount, int index, float buildingBarBackgroundHeight, float distanceBetweenBuildables)
         {
             float xCoord = screenSize.X / 2 + (index - buildablesCount / 2) * (Texture.Width * buildableScaling + distanceBetweenBuildables);
-            float yCoord = screenSize.Y - buildingBarBackgroundHeight / 2 - (Texture.Height / 2) * buildableScaling;
+            float yCoord = screenSize.Y - buildingBarBackgroundHeight / 2 + (Texture.Height / 2) * buildableScaling;
             centrePosition = new Vector2(xCoord, yCoord);
-            rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width / 2 * buildableScaling)), (int)(centrePosition.Y - (Texture.Height / 2 * buildableScaling)), (int)(Texture.Width * buildableScaling), (int)(Texture.Height * buildableScaling));
+            rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width * buildableScaling)), (int)(centrePosition.Y - (Texture.Height * buildableScaling)), (int)(Texture.Width * buildableScaling), (int)(Texture.Height * buildableScaling));
         }
         
     }
