@@ -28,7 +28,7 @@ namespace _2DMiningGameMG
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.minerTile];
 
             this.worldGrid = worldGrid;
-            this.miningTimer = new Timer(2, Mine);
+            this.miningTimer = new Timer(20, Mine);
             Visible = true;
             Usable = true;
             outputTileGridLoc = GridPosition - new Vector3(-1, 0, 0);
@@ -48,21 +48,25 @@ namespace _2DMiningGameMG
         public void Mine()
         {
             Tile outputTile = worldGrid.ReturnTileAtIndex(outputTileGridLoc);
-            if (outputTile is IStoragable)
+            if (outputTile is not IStoragable)
             {
-                for (int i = (int)GridPosition.Z + 1; i < worldGrid.Depth; i++)
+                miningTimer.ResetTimer();
+                return;
+            }
+
+            for (int i = (int)GridPosition.Z + 1; i < worldGrid.Depth; i++)
+            {
+                Tile tile = worldGrid.ReturnTileAtIndex(new Vector3(GridPosition.X, GridPosition.Y, i));
+                if (tile is null)
+                    continue;
+                else
                 {
-                    Tile tile = worldGrid.ReturnTileAtIndex(new Vector3(GridPosition.X, GridPosition.Y, i));
-                    if (tile is null)
-                        continue;
-                    else
-                    {
-                        (outputTile as IStoragable).ReceiveResource(tile.GetResource());
-                        worldGrid.RemoveTile(new Vector3(GridPosition.X, GridPosition.Y, i));
-                        break;
-                    }
+                    (outputTile as IStoragable).ReceiveResource(tile.GetResource());
+                    worldGrid.RemoveTile(new Vector3(GridPosition.X, GridPosition.Y, i));
+                    break;
                 }
             }
+            
         }
     }
 }

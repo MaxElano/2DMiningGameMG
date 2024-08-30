@@ -17,11 +17,10 @@ namespace _2DMiningGameMG
         private Vector2 globalPosition;
         protected Color tempColor;
         private Tile container;
-        public Resource(int x, int y, Tile container)
+        public Resource(Vector2 position)
         {
             this.tempColor = Color.White;
-            this.position = new Vector2(x, y);
-            this.container = container;
+            this.position = position;
         }
 
         public virtual void Initialize()
@@ -37,6 +36,11 @@ namespace _2DMiningGameMG
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, globalPosition, tempColor);
+        }
+
+        public void Move(Vector2 movement)
+        {
+            position += movement;
         }
     }
 }

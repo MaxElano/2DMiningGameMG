@@ -18,5 +18,10 @@ namespace _2DMiningGameMG
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.goldTile];
             Initialize();
         }
+
+        public override Resource GetResource()
+        {
+            return new GoldResource(texturePosition);
+        }
     }
 }

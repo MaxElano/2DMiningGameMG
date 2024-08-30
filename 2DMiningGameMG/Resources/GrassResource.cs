@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace _2DMiningGameMG
 {
     internal class GrassResource : Resource
     {
-        public GrassResource(int x, int y) : base(x, y)
+        public GrassResource(Vector2 position) : base(position)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassResource];
             Initialize();
         }
+
     }
 }

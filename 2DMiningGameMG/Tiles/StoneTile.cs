@@ -17,5 +17,10 @@ namespace _2DMiningGameMG
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.stoneTile];
             Initialize();
         }
+
+        public override Resource GetResource()
+        {
+            return new StoneResource(texturePosition);
+        }
     }
 }

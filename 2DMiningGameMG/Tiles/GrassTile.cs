@@ -17,5 +17,10 @@ namespace _2DMiningGameMG
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.grassTile];
             Initialize();
         }
+
+        public override Resource GetResource()
+        {
+            return new GrassResource(texturePosition);
+        }
     }
 }

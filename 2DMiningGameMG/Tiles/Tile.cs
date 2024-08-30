@@ -19,10 +19,8 @@ namespace _2DMiningGameMG
         public Texture2D Texture { get; protected set; }
 
         protected Vector2 textureOffset;
-        private Vector2 texturePosition;
+        protected Vector2 texturePosition;
         protected Vector2 globalPosition;
-
-        protected Resource miningResource;
 
         public Tile(Vector3 gridLocation)
         {
@@ -35,9 +33,9 @@ namespace _2DMiningGameMG
             this.texturePosition = new Vector2(GridPosition.X * (Texture.Width), GridPosition.Y * (Texture.Height));
         }
 
-        public Resource GetResource()
+        public virtual Resource GetResource()
         {
-            return miningResource;
+            return new GrassResource(texturePosition);
         }
 
         public void SetGridLocation(Vector3 gridLocation)

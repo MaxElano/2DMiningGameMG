@@ -41,6 +41,12 @@ namespace _2DMiningGameMG
         public override void Update(GameTime gameTime, Vector2 globalOffset)
         {
             pushTimer.Update(gameTime);
+            UpdateResourcePosition(gameTime);
+            
+            foreach (Resource r in conveyerQueue)
+            {
+                r.Update(gameTime, globalOffset);
+            }
 
             base.Update(gameTime, globalOffset);
         }
@@ -48,6 +54,40 @@ namespace _2DMiningGameMG
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, globalPosition + textureOffset, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, SetRotation(direction), textureOffset, 1f, SpriteEffects.None, 1f);
+
+            foreach (Resource r in conveyerQueue)
+            {
+                if (r is not null)
+                    r.Draw(spriteBatch);
+            }
+        }
+
+        public void UpdateResourcePosition(GameTime gameTime)
+        {
+            foreach (Resource r in conveyerQueue)
+            {
+                Vector2 movement;
+                float movSpeed = (conveyerSpeed * gameTime.ElapsedGameTime.Seconds * world.WorldGrid.SquareSize) / 60;
+                switch (direction)
+                {
+                    case Direction.Right:
+                        movement = new Vector2(movSpeed, 0);
+                        break;
+                    case Direction.Down:
+                        movement = new Vector2(0, movSpeed);
+                        break;
+                    case Direction.Left:
+                        movement = new Vector2(-movSpeed, 0);
+                        break;
+                    case Direction.Up:
+                        movement = new Vector2(0, movSpeed);
+                        break;
+                    default:
+                        movement = new Vector2(movSpeed, 0);
+                        break;
+                }
+                r.Move(movement);
+            }
         }
 
         public void PushItemFromQueue()
@@ -57,10 +97,8 @@ namespace _2DMiningGameMG
                 return;
             }
 
-            Resource res = conveyerQueue.Dequeue();
- 
             Vector3 difference;
-            switch (direction) 
+            switch (direction)
             {
                 case Direction.Up:
                     difference = new Vector3(0, -1, 0);
@@ -82,8 +120,14 @@ namespace _2DMiningGameMG
             Tile tile = world.WorldGrid.ReturnTileAtIndex(GridPosition + difference);
             if (tile is IStoragable && (tile as IStoragable).CanReceive)
             {
+                Resource res = conveyerQueue.Dequeue();
+
                 (tile as IStoragable).ReceiveResource(res);
             }
+
+            
+
+            
         }
 
         public void ReceiveResource(Resource resource)
