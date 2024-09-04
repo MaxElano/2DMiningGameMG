@@ -67,7 +67,7 @@ namespace _2DMiningGameMG
             foreach (Resource r in conveyerQueue)
             {
                 Vector2 movement;
-                float movSpeed = (conveyerSpeed * gameTime.ElapsedGameTime.Seconds * world.WorldGrid.SquareSize) / 60;
+                float movSpeed = (conveyerSpeed * (gameTime.ElapsedGameTime.Milliseconds / 1000f) * world.WorldGrid.SquareSize) / 60;
                 switch (direction)
                 {
                     case Direction.Right:
@@ -124,9 +124,6 @@ namespace _2DMiningGameMG
 
                 (tile as IStoragable).ReceiveResource(res);
             }
-
-            
-
             
         }
 

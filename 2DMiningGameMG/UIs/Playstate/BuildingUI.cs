@@ -16,7 +16,8 @@ namespace _2DMiningGameMG
         private List<UIItem> buildables;
         private float distanceBetweenBuildables = 40f;
         private Vector2 screenSize;
-        
+        private UIItem selectedRing;
+
         public BuildingUI(Vector2 screenSize)
         {
             this.screenSize = screenSize;
@@ -40,12 +41,15 @@ namespace _2DMiningGameMG
             spriteBatch.Draw(buildingBarBackground, new Vector2(screenSize.X / 2 - buildingBarBackground.Width / 2, screenSize.Y - buildingBarBackground.Height), Color.White);
 
             buildables.ForEach(b => { if (b.Visible) b.Draw(spriteBatch); });
+            selectedRing.Draw(spriteBatch);
         }
 
         private void InitializeIcons()
         {
             AddBuildable(new UIItem(UIItem.BuildableName.Miner));
             AddBuildable(new UIItem(UIItem.BuildableName.Conveyer));
+
+            selectedRing = new UIItem(UIItem.BuildableName.SelectedRing);
 
             for (int i = 0; i < buildables.Count; i++)
             {
@@ -57,7 +61,10 @@ namespace _2DMiningGameMG
         {
             foreach (UIItem item in buildables)
                 if (item.rectangle.Contains(clickLocation.X, clickLocation.Y))
+                {
+                    selectedRing.ManualSetLocation(item.centrePosition, 1f);
                     return item;
+                }
             return null;
         }
 

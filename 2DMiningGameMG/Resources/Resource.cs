@@ -30,7 +30,7 @@ namespace _2DMiningGameMG
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)
         {
-            globalPosition = globalOffset + position - textureOffset;
+            globalPosition = globalOffset + position;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
