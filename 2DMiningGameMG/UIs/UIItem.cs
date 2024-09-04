@@ -12,11 +12,12 @@ namespace _2DMiningGameMG
 {
     internal class UIItem
     {
-        public enum BuildableName { Miner, Conveyer}
+        public enum BuildableName { Miner, Conveyer, SelectedRing }
         public BuildableName name;
         public bool Usable { get; private set; }
         public bool Visible { get; private set; }
-        private Vector2 centrePosition;
+
+        public Vector2 centrePosition { get; private set; }
         public Texture2D Texture { get; private set; }
         public Rectangle rectangle { get; private set; }
 
@@ -45,6 +46,9 @@ namespace _2DMiningGameMG
                 case BuildableName.Conveyer:
                     (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerIcon];
                     break;
+                case BuildableName.SelectedRing:
+                    (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.selectedRingIcon];
+                    break;
             }
         }
 
@@ -56,5 +60,10 @@ namespace _2DMiningGameMG
             rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width * buildableScaling)), (int)(centrePosition.Y - (Texture.Height * buildableScaling)), (int)(Texture.Width * buildableScaling), (int)(Texture.Height * buildableScaling));
         }
         
+        public void ManualSetLocation(Vector2 centrePosition, float buildableScalingOverride)
+        {
+            this.centrePosition = centrePosition;
+            this.rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width * buildableScalingOverride)), (int)(centrePosition.Y - (Texture.Height * buildableScalingOverride)), (int)(Texture.Width * buildableScalingOverride), (int)(Texture.Height * buildableScalingOverride));
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace _2DMiningGameMG
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.minerTile];
 
             this.worldGrid = worldGrid;
-            this.miningTimer = new Timer(20, Mine);
+            this.miningTimer = new Timer(2, Mine);
             Visible = true;
             Usable = true;
             outputTileGridLoc = GridPosition - new Vector3(-1, 0, 0);

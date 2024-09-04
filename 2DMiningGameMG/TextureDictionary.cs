@@ -16,7 +16,7 @@ namespace _2DMiningGameMG
     internal static class TextureDictionary
     {
         public enum TextureName {
-        /*Icons*/      minerIcon, conveyerIcon
+        /*Icons*/      minerIcon, conveyerIcon, selectedRingIcon
         /*Resources*/, grassResource, stoneResource, goldResource
         /*Tiles*/    , grassTile, stoneTile, goldTile, minerTile, conveyerTile
         /*UIs*/      , buildingBarBackground
@@ -51,6 +51,10 @@ namespace _2DMiningGameMG
             //conveyerIcon
             texture = content.Load<Texture2D>("Sprites\\Icons\\ConveyerIcon");
             Textures.Add(TextureName.conveyerIcon, (texture, IsTextureTransparent(texture)));
+
+            //selectedRingIcons
+            texture = content.Load<Texture2D>("Sprites\\Icons\\SelectedRingIcon");
+            Textures.Add(TextureName.selectedRingIcon, (texture, IsTextureTransparent(texture)));
         }
 
         private static void GenerateResources(ContentManager content)
