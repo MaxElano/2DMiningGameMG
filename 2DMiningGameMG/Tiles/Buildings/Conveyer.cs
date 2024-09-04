@@ -132,6 +132,8 @@ namespace _2DMiningGameMG
 
         public void ReceiveResource(Resource resource)
         {
+            if (conveyerQueue.Count() == 0)
+                pushTimer.ResetTimer();
             conveyerQueue.Enqueue(resource);
         }
 
