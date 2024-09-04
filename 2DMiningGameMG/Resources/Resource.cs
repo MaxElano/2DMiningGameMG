@@ -25,17 +25,17 @@ namespace _2DMiningGameMG
 
         public virtual void Initialize()
         {
-            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2);
+            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2) * resourceScaling;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)
         {
-            globalPosition = globalOffset + position;
+            globalPosition = globalOffset + position + textureOffset;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, globalPosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, new Vector2(Texture.Width, Texture.Height), resourceScaling, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texture, globalPosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, Vector2.Zero, resourceScaling, SpriteEffects.None, 1);
         }
 
         public void Move(Vector2 movement)

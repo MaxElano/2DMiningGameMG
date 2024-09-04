@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
+using System.Transactions;
 
 namespace _2DMiningGameMG
 {
@@ -34,6 +35,8 @@ namespace _2DMiningGameMG
             pushTimer = new Timer(conveyerSpeed / 60, PushItemFromQueue);
             Visible = true;
             Usable = true;
+            this.CanReceive = true;
+
 
             Initialize();
         }
