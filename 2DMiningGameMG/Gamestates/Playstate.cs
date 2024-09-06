@@ -58,6 +58,12 @@ namespace _2DMiningGameMG
             HandleClick();
         }
 
+        private void HandleRotate()
+        {
+            if (inputHelper.RotatePressed())
+                
+        }
+
         private void HandleClick()
         {
             (bool placeBuild, Vector2 placeLoc) = inputHelper.PlaceBuilding();

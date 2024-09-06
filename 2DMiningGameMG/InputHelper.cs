@@ -19,7 +19,7 @@ namespace _2DMiningGameMG
         Keys cameraDown = Keys.S;
         Keys cameraLeft = Keys.A;
         Keys cameraRight = Keys.D;
-
+        Keys rotate = Keys.R;
 
         public InputHelper() { }
         public void Update()
@@ -65,6 +65,13 @@ namespace _2DMiningGameMG
                 && prevMouseState.LeftButton == ButtonState.Pressed)
                 return true;
             else return false;
+        }
+
+        public bool RotatePressed()
+        {
+            if (keyboardState.IsKeyDown(cameraUp))
+                return true;
+            return false;
         }
     }
 }
