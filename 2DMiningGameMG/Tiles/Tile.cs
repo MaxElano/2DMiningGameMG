@@ -11,7 +11,7 @@ namespace _2DMiningGameMG
 {
     internal class Tile
     {
-        protected enum Direction { Up, Down, Left, Right }
+        public enum Direction { Up, Right, Down, Left}
 
         public Vector3 GridPosition { get; private set; }
         public bool IsTransparent { get; protected set; }

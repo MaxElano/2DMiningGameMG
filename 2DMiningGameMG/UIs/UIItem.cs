@@ -20,8 +20,8 @@ namespace _2DMiningGameMG
         public Vector2 centrePosition { get; private set; }
         public Texture2D Texture { get; private set; }
         public Rectangle rectangle { get; private set; }
-
         public float buildableScaling { get; private set; }
+        public Tile.Direction Direction { get; private set; }
         public UIItem(BuildableName name) 
         { 
             Usable = true;
@@ -64,6 +64,19 @@ namespace _2DMiningGameMG
         {
             this.centrePosition = centrePosition;
             this.rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width * buildableScalingOverride)), (int)(centrePosition.Y - (Texture.Height * buildableScalingOverride)), (int)(Texture.Width * buildableScalingOverride), (int)(Texture.Height * buildableScalingOverride));
+        }
+
+        public void Rotate()
+        {
+            var directionValues = Enum.GetValues<Tile.Direction>();
+            for(int i = 0; i < directionValues.Length; i++)
+            {
+                if (Direction == (Tile.Direction)i)
+                {
+                    Direction = (Tile.Direction)((i + 1) % directionValues.Length);
+                    break;
+                }
+            }
         }
     }
 }

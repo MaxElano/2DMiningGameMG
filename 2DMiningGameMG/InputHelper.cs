@@ -69,7 +69,7 @@ namespace _2DMiningGameMG
 
         public bool RotatePressed()
         {
-            if (keyboardState.IsKeyDown(cameraUp))
+            if (keyboardState.IsKeyDown(rotate) && prevKeyboardState.IsKeyUp(rotate))
                 return true;
             return false;
         }

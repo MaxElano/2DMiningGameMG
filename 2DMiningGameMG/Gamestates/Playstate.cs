@@ -56,12 +56,13 @@ namespace _2DMiningGameMG
             world.CameraOffset += inputHelper.CameraMovement(gameTime);
 
             HandleClick();
+            HandleRotate();
         }
 
         private void HandleRotate()
         {
             if (inputHelper.RotatePressed())
-                
+                selectedBuildable.Rotate();
         }
 
         private void HandleClick()
@@ -94,20 +95,20 @@ namespace _2DMiningGameMG
             Vector3 loc = new Vector3(gridLoc.X, gridLoc.Y, buildLayer);
             if (world.WorldGrid.CheckInGrid(loc))
             {
-                world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name));
+                world.WorldGrid.PlaceTile(loc, CreateCorrectTileFromUI(loc, selectedBuildable.name, selectedBuildable.Direction));
                 return true;
             }
             return false;
         }
 
-        private Tile CreateCorrectTileFromUI(Vector3 location, BuildableName name)
+        private Tile CreateCorrectTileFromUI(Vector3 location, BuildableName name, Tile.Direction direction)
         {
             switch (name) 
             { 
                 case BuildableName.Miner:
                     return new Miner(world.WorldGrid, location);
                 case BuildableName.Conveyer:
-                    return new Conveyer(world, 60f, location);
+                    return new Conveyer(world, 60f, location, direction);
                 default:
                     return null;
             }

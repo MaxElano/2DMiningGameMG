@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
 using System.Transactions;
+using static _2DMiningGameMG.Tile;
 
 namespace _2DMiningGameMG
 {
@@ -25,7 +26,7 @@ namespace _2DMiningGameMG
         World world;
         float rotation;
 
-        public Conveyer(World world, float conveyerSpeed, Vector3 gridLocation) : base(gridLocation)
+        public Conveyer(World world, float conveyerSpeed, Vector3 gridLocation, Direction direction) : base(gridLocation)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerTile];
             this.direction = Direction.Right;
@@ -36,7 +37,7 @@ namespace _2DMiningGameMG
             Visible = true;
             Usable = true;
             this.CanReceive = true;
-
+            this.direction = direction;
 
             Initialize();
         }
@@ -126,15 +127,15 @@ namespace _2DMiningGameMG
             switch (direction)
             {
                 case Direction.Up:
-                    return 270/360f;
+                    return MathHelper.ToRadians(270);
                 case Direction.Down:
-                    return 90/360f;
+                    return MathHelper.ToRadians(90);
                 case Direction.Right:
-                    return 0f;    
+                    return MathHelper.ToRadians(0);    
                 case Direction.Left:
-                    return 180/360f;
+                    return MathHelper.ToRadians(180);
                 default:
-                    return 0f;
+                    return MathHelper.ToRadians(0);
             }
         }
     }
