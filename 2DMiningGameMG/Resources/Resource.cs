@@ -15,28 +15,28 @@ namespace _2DMiningGameMG
         private Vector2 textureOffset;
         private Vector2 position;
         private Vector2 globalPosition;
-        protected Color tempColor;
         private Tile container;
         public Vector2 MoveTo { get; set; }
+        private float resourceScaling;
         public Resource(Vector2 position)
         {
-            this.tempColor = Color.White;
             this.position = position;
+            this.resourceScaling = 0.5f;
         }
 
         public virtual void Initialize()
         {
-            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2);
+            this.textureOffset = new Vector2(Texture.Width / 2, Texture.Height / 2) * resourceScaling;
         }
 
         public virtual void Update(GameTime gameTime, Vector2 globalOffset)
         {
-            globalPosition = globalOffset + position;
+            globalPosition = globalOffset + position + textureOffset;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(Texture, globalPosition, tempColor);
+            spriteBatch.Draw(Texture, globalPosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, Vector2.Zero, resourceScaling, SpriteEffects.None, 1);
         }
 
         public void Move(float speed)
