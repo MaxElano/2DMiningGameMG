@@ -66,27 +66,8 @@ namespace _2DMiningGameMG
         {
             foreach (Resource r in conveyerQueue)
             {
-                Vector2 movement;
                 float movSpeed = (conveyerSpeed * (gameTime.ElapsedGameTime.Milliseconds / 1000f) * world.WorldGrid.SquareSize) / 60;
-                switch (direction)
-                {
-                    case Direction.Right:
-                        movement = new Vector2(movSpeed, 0);
-                        break;
-                    case Direction.Down:
-                        movement = new Vector2(0, movSpeed);
-                        break;
-                    case Direction.Left:
-                        movement = new Vector2(-movSpeed, 0);
-                        break;
-                    case Direction.Up:
-                        movement = new Vector2(0, movSpeed);
-                        break;
-                    default:
-                        movement = new Vector2(movSpeed, 0);
-                        break;
-                }
-                r.Move(movement);
+                r.Move(movSpeed);
             }
         }
 
@@ -129,6 +110,7 @@ namespace _2DMiningGameMG
 
         public void ReceiveResource(Resource resource)
         {
+            resource.MoveTo = texturePosition;
             conveyerQueue.Enqueue(resource);
         }
 

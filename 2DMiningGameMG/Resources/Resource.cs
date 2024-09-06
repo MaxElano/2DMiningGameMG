@@ -17,6 +17,7 @@ namespace _2DMiningGameMG
         private Vector2 globalPosition;
         protected Color tempColor;
         private Tile container;
+        public Vector2 MoveTo { get; set; }
         public Resource(Vector2 position)
         {
             this.tempColor = Color.White;
@@ -38,9 +39,9 @@ namespace _2DMiningGameMG
             spriteBatch.Draw(Texture, globalPosition, tempColor);
         }
 
-        public void Move(Vector2 movement)
+        public void Move(float speed)
         {
-            position += movement;
+            position += Vector2.Normalize(MoveTo - position) * speed;
         }
     }
 }
