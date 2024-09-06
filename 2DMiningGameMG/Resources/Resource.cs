@@ -18,10 +18,12 @@ namespace _2DMiningGameMG
         private Tile container;
         public Vector2 MoveTo { get; set; }
         private float resourceScaling;
+        private float moveToMargin;
         public Resource(Vector2 position)
         {
             this.position = position;
             this.resourceScaling = 0.5f;
+            this.moveToMargin = 2;
         }
 
         public virtual void Initialize()
@@ -41,7 +43,8 @@ namespace _2DMiningGameMG
 
         public void Move(float speed)
         {
-            position += Vector2.Normalize(MoveTo - position) * speed;
+            if (Math.Abs(position.X - MoveTo.X) > moveToMargin || Math.Abs(position.Y - MoveTo.Y) > moveToMargin)
+                position += Vector2.Normalize(MoveTo - position) * speed;
         }
     }
 }

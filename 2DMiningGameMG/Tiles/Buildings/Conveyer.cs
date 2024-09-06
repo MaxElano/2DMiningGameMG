@@ -107,6 +107,7 @@ namespace _2DMiningGameMG
                 Resource res = conveyerQueue.Dequeue();
 
                 (tile as IStoragable).ReceiveResource(res);
+                CanReceive = true;
             }
             
         }
@@ -116,6 +117,7 @@ namespace _2DMiningGameMG
             if (conveyerQueue.Count() == 0)
                 pushTimer.ResetTimer();
             resource.MoveTo = texturePosition;
+            CanReceive = false;
             conveyerQueue.Enqueue(resource);
         }
 
