@@ -35,6 +35,11 @@ namespace _2DMiningGameMG
         {
             spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, new Vector2(Texture.Width, Texture.Height), buildableScaling, SpriteEffects.None, 1);
         }
+        
+        public void DrawTemp(SpriteBatch spriteBatch, Vector2 location)
+        {
+            spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.Blue, 0f, new Vector2(Texture.Width, Texture.Height), 1f, SpriteEffects.None, 1);
+        }
 
         private void SetTexture()
         {
