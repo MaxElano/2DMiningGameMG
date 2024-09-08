@@ -39,6 +39,7 @@ namespace _2DMiningGameMG
             WorldGrid = new WorldGrid();
 
             CameraOffset = new Vector2(0, 0);
+            World.resources.Clear();
         }
 
         public void Update(GameTime gameTime)
