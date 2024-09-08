@@ -114,7 +114,7 @@ namespace _2DMiningGameMG
                 case BuildableName.Miner:
                     return new Miner(world.WorldGrid, location);
                 case BuildableName.Conveyer:
-                    return new Conveyer(world, 60f, location, direction);
+                    return new Conveyer(world.WorldGrid, 60f, location, direction);
                 default:
                     return null;
             }

@@ -21,7 +21,7 @@ namespace _2DMiningGameMG
         public Vector2 CameraOffset { get; set; }
 
         public WorldGrid WorldGrid { get; private set; }
-        private List<Resource> resources;
+        private static List<Resource> resources;
         
         public bool mouseClicked = false;
         private Random randomOreGenerator;
@@ -89,6 +89,16 @@ namespace _2DMiningGameMG
                 location = GridToScreenLocation(location);
                 temp.DrawTemp(spritebatch, location);
             }
+        }
+
+        public static void AddResource(Resource resource)
+        {
+            resources.Add(resource);
+        }
+
+        public static void RemoveResource(Resource resource)
+        {
+            resources.Remove(resource);
         }
     }
 }

@@ -23,15 +23,15 @@ namespace _2DMiningGameMG
         Queue<Resource> conveyerQueue;
         Direction direction;
         Timer pushTimer;
-        World world;
+        WorldGrid worldGrid;
         float rotation;
 
-        public Conveyer(World world, float conveyerSpeed, Vector3 gridLocation, Direction direction) : base(gridLocation)
+        public Conveyer(WorldGrid worldGrid, float conveyerSpeed, Vector3 gridLocation, Direction direction) : base(gridLocation)
         {
             (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.conveyerTile];
             this.direction = Direction.Right;
             conveyerQueue = new Queue<Resource>();
-            this.world = world;
+            this.worldGrid = worldGrid;
             this.conveyerSpeed = conveyerSpeed;
             pushTimer = new Timer(conveyerSpeed / 60, PushItemFromQueue);
             Visible = true;
@@ -46,11 +46,6 @@ namespace _2DMiningGameMG
         {
             pushTimer.Update(gameTime);
             UpdateResourcePosition(gameTime);
-            
-            foreach (Resource r in conveyerQueue)
-            {
-                r.Update(gameTime, globalOffset);
-            }
 
             base.Update(gameTime, globalOffset);
         }
@@ -58,19 +53,13 @@ namespace _2DMiningGameMG
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(Texture, globalPosition + textureOffset, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, SetRotation(direction), textureOffset, 1f, SpriteEffects.None, 1f);
-
-            foreach (Resource r in conveyerQueue)
-            {
-                if (r is not null)
-                    r.Draw(spriteBatch);
-            }
         }
 
         public void UpdateResourcePosition(GameTime gameTime)
         {
             foreach (Resource r in conveyerQueue)
             {
-                float movSpeed = (conveyerSpeed * (gameTime.ElapsedGameTime.Milliseconds / 1000f) * world.WorldGrid.SquareSize) / 60;
+                float movSpeed = (conveyerSpeed * (gameTime.ElapsedGameTime.Milliseconds / 1000f) * worldGrid.SquareSize) / 60;
                 r.Move(movSpeed);
             }
         }
@@ -102,10 +91,12 @@ namespace _2DMiningGameMG
                     break;
             }
 
-            Tile tile = world.WorldGrid.ReturnTileAtIndex(GridPosition + difference);
+            Tile tile = worldGrid.ReturnTileAtIndex(GridPosition + difference);
             if (tile is IStoragable && (tile as IStoragable).CanReceive)
             {
                 Resource res = conveyerQueue.Dequeue();
+                World.RemoveResource(res);
+
 
                 (tile as IStoragable).ReceiveResource(res);
                 CanReceive = true;
@@ -120,7 +111,13 @@ namespace _2DMiningGameMG
             resource.MoveTo = texturePosition;
             CanReceive = false;
             conveyerQueue.Enqueue(resource);
+            World.AddResource(resource);
         }
 
+        public void RemoveResources()
+        {
+            foreach (Resource res in conveyerQueue)
+                World.RemoveResource(res);
+        }
     }
 }

@@ -38,18 +38,6 @@ namespace _2DMiningGameMG
             SetTexture();
         }
 
-        // Drawing the icons in the hotbar
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, new Vector2(Texture.Width, Texture.Height), buildableScaling, SpriteEffects.None, 1);
-        }
-        
-        // Used to draw the buildable you have selected as "placing vision"
-        public void DrawTemp(SpriteBatch spriteBatch, Vector2 location)
-        {
-            spriteBatch.Draw(Texture, location + new Vector2(Texture.Width / 2, Texture.Height / 2), new Rectangle(0, 0, Texture.Width, Texture.Height), Color.LightSkyBlue, Tile.SetRotation(Direction), new Vector2(Texture.Width / 2, Texture.Height / 2), 1f, SpriteEffects.None, 1);
-        }
-
         // Sets the texture for the object
         // Add new builables (textures) here!!!!
         private void SetTexture()
@@ -76,7 +64,7 @@ namespace _2DMiningGameMG
             centrePosition = new Vector2(xCoord, yCoord);
             rectangle = new Rectangle((int)(centrePosition.X - (Texture.Width * buildableScaling)), (int)(centrePosition.Y - (Texture.Height * buildableScaling)), (int)(Texture.Width * buildableScaling), (int)(Texture.Height * buildableScaling));
         }
-        
+
         // If the automatic location can not be used (eg. for DrawTemp) use this to set it
         public void ManualSetLocation(Vector2 centrePosition, float buildableScalingOverride)
         {
@@ -88,7 +76,7 @@ namespace _2DMiningGameMG
         public void Rotate()
         {
             var directionValues = Enum.GetValues<Tile.Direction>();
-            for(int i = 0; i < directionValues.Length; i++)
+            for (int i = 0; i < directionValues.Length; i++)
             {
                 if (Direction == (Tile.Direction)i)
                 {
@@ -96,6 +84,18 @@ namespace _2DMiningGameMG
                     break;
                 }
             }
+        }
+
+        // Drawing the icons in the hotbar
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.White, 0f, new Vector2(Texture.Width, Texture.Height), buildableScaling, SpriteEffects.None, 1);
+        }
+        
+        // Used to draw the buildable you have selected as "placing vision"
+        public void DrawTemp(SpriteBatch spriteBatch, Vector2 location)
+        {
+            spriteBatch.Draw(Texture, location + new Vector2(Texture.Width / 2, Texture.Height / 2), new Rectangle(0, 0, Texture.Width, Texture.Height), Color.LightSkyBlue, Tile.SetRotation(Direction), new Vector2(Texture.Width / 2, Texture.Height / 2), 1f, SpriteEffects.None, 1);
         }
     }
 }

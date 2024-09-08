@@ -74,11 +74,19 @@ namespace _2DMiningGameMG
 
         public void PlaceTile(Vector3 gridLocation, Tile tile)
         {
-            if (0 <= (int)gridLocation.X && (int)gridLocation.X < grid.GetLength(0) && 0 <= (int)gridLocation.Y && (int)gridLocation.Y < grid.GetLength(1) && 0 <= (int)gridLocation.Z && (int)gridLocation.Z < grid.GetLength(2))
-                grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] = tile;
+            if (!(0 <= (int)gridLocation.X && (int)gridLocation.X < grid.GetLength(0) && 0 <= (int)gridLocation.Y && (int)gridLocation.Y < grid.GetLength(1) && 0 <= (int)gridLocation.Z && (int)gridLocation.Z < grid.GetLength(2)))
+                return;
+
+            if (grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] is IStoragable)
+                (grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] as IStoragable).RemoveResources();
+
+            grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] = tile;
         }
         public void RemoveTile(Vector3 gridLocation)
         {
+            if (!(0 <= (int)gridLocation.X && (int)gridLocation.X < grid.GetLength(0) && 0 <= (int)gridLocation.Y && (int)gridLocation.Y < grid.GetLength(1) && 0 <= (int)gridLocation.Z && (int)gridLocation.Z < grid.GetLength(2)))
+                return;
+
             PlaceTile(gridLocation, null);
         }
         public Tile ReturnTileAtIndex(Vector3 index)
