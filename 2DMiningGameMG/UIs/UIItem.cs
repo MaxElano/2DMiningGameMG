@@ -39,7 +39,7 @@ namespace _2DMiningGameMG
         
         public void DrawTemp(SpriteBatch spriteBatch, Vector2 location)
         {
-            spriteBatch.Draw(Texture, location + new Vector2(Texture.Width / 2, Texture.Height / 2), new Rectangle(0, 0, Texture.Width, Texture.Height), Color.Blue, Tile.SetRotation(Direction), new Vector2(Texture.Width / 2, Texture.Height / 2), 1f, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texture, location + new Vector2(Texture.Width / 2, Texture.Height / 2), new Rectangle(0, 0, Texture.Width, Texture.Height), Color.LightSkyBlue, Tile.SetRotation(Direction), new Vector2(Texture.Width / 2, Texture.Height / 2), 1f, SpriteEffects.None, 1);
         }
 
         private void SetTexture()
