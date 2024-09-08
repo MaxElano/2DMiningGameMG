@@ -1,15 +1,17 @@
-﻿using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using System.Reflection.Metadata;
 using SharpDX.Direct3D9;
+using SharpDX.DirectWrite;
+using System.Diagnostics;
+using System.Security.Cryptography.Xml;
+using static _2DMiningGameMG.UIItem;
 using Microsoft.Xna.Framework.Content;
-using System.Runtime.CompilerServices;
-using Microsoft.Xna.Framework.Input;
-using System.CodeDom;
 
 
 namespace _2DMiningGameMG
@@ -70,11 +72,23 @@ namespace _2DMiningGameMG
 
             return screenLocation;
         }
-
-        public void DrawTemp(UIItem temp, Spritebatch spritebatch, Vector2 mouseLocation)
+        
+        public Vector2 GridToScreenLocation(Vector2 gridLocation)
         {
-            Vector2 location = 
-            temp.DrawTemp();
+            gridLocation *= WorldGrid.SquareSize;
+            gridLocation += CameraOffset;
+
+            return gridLocation;
+        }
+
+        public void DrawTemp(UIItem temp, SpriteBatch spritebatch, Vector2 mouseLocation)
+        {
+            Vector2 location = ScreenToGridLocation(mouseLocation);
+            if (WorldGrid.CheckInGrid(new Vector3(location.X, location.Y, 0)))
+            {
+                location = GridToScreenLocation(location);
+                temp.DrawTemp(spritebatch, location);
+            }
         }
     }
 }
