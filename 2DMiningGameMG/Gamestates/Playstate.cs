@@ -1,12 +1,17 @@
-﻿using _2DMiningGameMG;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct2D1.Effects;
+using Microsoft.Xna.Framework;
+using System.Reflection.Metadata;
+using SharpDX.Direct3D9;
 using SharpDX.DirectWrite;
-using System;
+using System.Diagnostics;
+using System.Security.Cryptography.Xml;
 using static _2DMiningGameMG.UIItem;
+using Microsoft.Xna.Framework.Content;
 
 namespace _2DMiningGameMG
 {
@@ -48,6 +53,7 @@ namespace _2DMiningGameMG
         {
             this.spriteBatch = spriteBatch;
             world.Draw(spriteBatch);
+            world.DrawTemp(selectedBuildable, spriteBatch, inputHelper.MousePosition);
             buildingUI.Draw(spriteBatch, new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight));
         }
 

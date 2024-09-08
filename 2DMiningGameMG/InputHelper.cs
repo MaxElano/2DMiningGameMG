@@ -15,6 +15,8 @@ namespace _2DMiningGameMG
         MouseState mouseState;
         MouseState prevMouseState;
 
+        public Vector2 MousePosition { get; private set; }
+
         Keys cameraUp = Keys.W;
         Keys cameraDown = Keys.S;
         Keys cameraLeft = Keys.A;
@@ -29,6 +31,8 @@ namespace _2DMiningGameMG
 
             prevMouseState = mouseState;
             mouseState = Mouse.GetState();
+
+            MousePosition = new Vector2(mouseState.Position.X, mouseState.Position.Y);
         }
 
         public Vector2 CameraMovement(GameTime gameTime)

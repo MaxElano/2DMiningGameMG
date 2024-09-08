@@ -70,5 +70,11 @@ namespace _2DMiningGameMG
 
             return screenLocation;
         }
+
+        public void DrawTemp(UIItem temp, Spritebatch spritebatch, Vector2 mouseLocation)
+        {
+            Vector2 location = 
+            temp.DrawTemp();
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace _2DMiningGameMG
 {
     internal class UIItem
@@ -38,7 +39,7 @@ namespace _2DMiningGameMG
         
         public void DrawTemp(SpriteBatch spriteBatch, Vector2 location)
         {
-            spriteBatch.Draw(Texture, centrePosition, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.Blue, 0f, new Vector2(Texture.Width, Texture.Height), 1f, SpriteEffects.None, 1);
+            spriteBatch.Draw(Texture, location, new Rectangle(0, 0, Texture.Width, Texture.Height), Color.Blue, Tile.SetRotation(Direction), new Vector2(Texture.Width, Texture.Height), 1f, SpriteEffects.None, 1);
         }
 
         private void SetTexture()

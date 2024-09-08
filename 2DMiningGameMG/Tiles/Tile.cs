@@ -53,5 +53,21 @@ namespace _2DMiningGameMG
             spriteBatch.Draw(Texture, globalPosition, Color.White);
         }
 
+        public static float SetRotation(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.Up:
+                    return MathHelper.ToRadians(270);
+                case Direction.Down:
+                    return MathHelper.ToRadians(90);
+                case Direction.Right:
+                    return MathHelper.ToRadians(0);
+                case Direction.Left:
+                    return MathHelper.ToRadians(180);
+                default:
+                    return MathHelper.ToRadians(0);
+            }
+        }
     }
 }
