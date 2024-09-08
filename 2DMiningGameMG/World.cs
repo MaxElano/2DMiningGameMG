@@ -54,17 +54,6 @@ namespace _2DMiningGameMG
             resources.ForEach(r => r.Draw(spriteBatch));
         }
 
-
-        //public void HandleMouseClick(MouseState mouseState)
-        //{
-        //    Vector2 pos = mouseState.Position.ToVector2();
-        //    Vector2 gpos = (pos - CameraOffset + originalHalfGridSize * squareSize + new Vector2(squareSize / 2, squareSize / 2)) / squareSize;
-        //    gpos = new Vector2((float)Math.Floor(gpos.X), (float)Math.Floor(gpos.Y));
-
-        //    if (0 <= (int)gpos.X && (int)gpos.X < WorldGrid.GetLength(0) && 0 <= (int)gpos.Y && (int)gpos.Y < WorldGrid.GetLength(1))
-        //        PlaceBuilding(gpos, new Miner(WorldGrid, (int)gpos.X, (int)gpos.Y, topLayer - 1, textures[TextureName.miner]));
-        //}
-
         public Vector2 ScreenToGridLocation(Vector2 screenLocation)
         {
             screenLocation -= CameraOffset;
