@@ -30,36 +30,37 @@ namespace _2DMiningGameMG
                     storage[i,j] = new List<Resource>(maxStackSize);
                 }
         }
-        //public bool canReceiveResource(Resource resource)
-        //{
-        //    if (!CanReceive || resource is null)
-        //        return false;
+        public bool canReceiveResource(Resource resource)
+        {
+            if (!CanReceive || resource is null)
+                return false;
 
-        //    for (int j = 0; j < storage.GetLength(1); j++)
-        //        for (int i = 0; i < storage.GetLength(0); i++)
-        //        {
-        //            if (storage[i, j].Count() < maxStackSize && storage[i, j] is )
-        //            {
-        //                return true;
-        //            }
-        //        }
-        //    return false;
-        //}
-        //public void ReceiveResource(Resource resource)
-        //{
-        //    if (!CanReceive || resource is null)
-        //        return;
+            for (int j = 0; j < storage.GetLength(1); j++)
+                for (int i = 0; i < storage.GetLength(0); i++)
+                {
+                    if (storage[i, j].Count() < maxStackSize && storage[i, j] is )
+                    {
+                        return true;
+                    }
+                }
+            return false;
+        }
+        public void ReceiveResource(Resource resource)
+        {
+            if (!CanReceive || resource is null)
+                return;
 
-        //    for (int j = 0; j < storage.GetLength(1); j++)
-        //        for (int i = 0; i < storage.GetLength(0); i++)
-        //        {
-        //            if (storage[i, j].Count() < maxStackSize && storage[i, j] is resource.GetType())
-        //            {
-                        
-        //                storage[i, j].Add(resource);
-        //            }
-        //        }
-        //}
+            for (int j = 0; j < storage.GetLength(1); j++)
+                for (int i = 0; i < storage.GetLength(0); i++)
+                {
+
+                    if (storage[i, j].Count() < maxStackSize && storage[i, j][0].GetType() == resource.GetType() || storage[i, j].Count() == 0)
+                    {
+
+                        storage[i, j].Add(resource);
+                    }
+                }
+        }
 
         public void RemoveResources()
         {
