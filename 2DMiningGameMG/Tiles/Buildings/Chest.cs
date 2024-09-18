@@ -38,7 +38,7 @@ namespace _2DMiningGameMG
             for (int j = 0; j < storage.GetLength(1); j++)
                 for (int i = 0; i < storage.GetLength(0); i++)
                 {
-                    if (storage[i, j].Count() < maxStackSize && storage[i, j] is )
+                    if (storage[i, j].Count() < maxStackSize && storage[i, j][0].GetType() == resource.GetType() || storage[i, j].Count() == 0)
                     {
                         return true;
                     }
@@ -53,10 +53,8 @@ namespace _2DMiningGameMG
             for (int j = 0; j < storage.GetLength(1); j++)
                 for (int i = 0; i < storage.GetLength(0); i++)
                 {
-
                     if (storage[i, j].Count() < maxStackSize && storage[i, j][0].GetType() == resource.GetType() || storage[i, j].Count() == 0)
                     {
-
                         storage[i, j].Add(resource);
                     }
                 }
