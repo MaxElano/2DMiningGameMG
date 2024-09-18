@@ -17,6 +17,6 @@ namespace _2DMiningGameMG
         public bool CanReceive { protected set; get; }
         public abstract void ReceiveResource(Resource resource);
         public abstract void UpdateResourcePosition(GameTime gameTime);
-        public abstract void RemoveResources();
+        public abstract void RemoveResources(World world);
     }
 }

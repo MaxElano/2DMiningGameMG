@@ -16,9 +16,9 @@ namespace _2DMiningGameMG
     internal static class TextureDictionary
     {
         public enum TextureName {
-        /*Icons*/      minerIcon, conveyerIcon, selectedRingIcon
+        /*Icons*/      minerIcon, conveyerIcon, selectedRingIcon, chestIcon
         /*Resources*/, grassResource, stoneResource, goldResource
-        /*Tiles*/    , grassTile, stoneTile, goldTile, minerTile, conveyerTile
+        /*Tiles*/    , grassTile, stoneTile, goldTile, minerTile, conveyerTile, chestTile
         /*UIs*/      , buildingBarBackground
         }
         public static Dictionary<TextureName, (Texture2D, bool)> Textures { get; private set; }
@@ -52,9 +52,13 @@ namespace _2DMiningGameMG
             texture = content.Load<Texture2D>("Sprites\\Icons\\ConveyerIcon");
             Textures.Add(TextureName.conveyerIcon, (texture, IsTextureTransparent(texture)));
 
-            //selectedRingIcons
+            //selectedRingIcon
             texture = content.Load<Texture2D>("Sprites\\Icons\\SelectedRingIcon");
             Textures.Add(TextureName.selectedRingIcon, (texture, IsTextureTransparent(texture)));
+
+            //chestIcon
+            texture = content.Load<Texture2D>("Sprites\\Icons\\ChestIcon");
+            Textures.Add(TextureName.chestIcon, (texture, IsTextureTransparent(texture)));
         }
 
         private static void GenerateResources(ContentManager content)
@@ -98,6 +102,10 @@ namespace _2DMiningGameMG
             //conveyerTile
             texture = content.Load<Texture2D>("Sprites\\Tiles\\ConveyerTile");
             Textures.Add(TextureName.conveyerTile, (texture, IsTextureTransparent(texture)));
+
+            //chestTile
+            texture = content.Load<Texture2D>("Sprites\\Tiles\\ChestTile");
+            Textures.Add(TextureName.chestTile, (texture, IsTextureTransparent(texture)));
         }
 
         private static void GenerateUI(ContentManager content)

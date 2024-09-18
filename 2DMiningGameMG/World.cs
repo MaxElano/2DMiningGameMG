@@ -36,7 +36,7 @@ namespace _2DMiningGameMG
 
             resources = new List<Resource>();
 
-            WorldGrid = new WorldGrid();
+            WorldGrid = new WorldGrid(this);
 
             CameraOffset = new Vector2(0, 0);
             World.resources.Clear();

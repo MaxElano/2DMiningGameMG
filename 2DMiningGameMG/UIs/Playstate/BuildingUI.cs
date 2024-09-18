@@ -48,6 +48,8 @@ namespace _2DMiningGameMG
         {
             AddBuildable(new UIItem(UIItem.BuildableName.Miner));
             AddBuildable(new UIItem(UIItem.BuildableName.Conveyer));
+            AddBuildable(new UIItem(UIItem.BuildableName.Chest));
+
 
             selectedRing = new UIItem(UIItem.BuildableName.SelectedRing);
 

@@ -114,7 +114,7 @@ namespace _2DMiningGameMG
             World.AddResource(resource);
         }
 
-        public void RemoveResources()
+        public void RemoveResources(World world)
         {
             foreach (Resource res in conveyerQueue)
                 World.RemoveResource(res);

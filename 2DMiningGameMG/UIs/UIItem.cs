@@ -15,7 +15,7 @@ namespace _2DMiningGameMG
     {
         // All buildables should be here
         // Add all buildables names here
-        public enum BuildableName { Miner, Conveyer, SelectedRing }
+        public enum BuildableName { Miner, Conveyer, SelectedRing, Chest }
         public BuildableName name;
 
         // Icon interactions
@@ -52,6 +52,9 @@ namespace _2DMiningGameMG
                     break;
                 case BuildableName.SelectedRing:
                     (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.selectedRingIcon];
+                    break;
+                case BuildableName.Chest:
+                    (this.Texture, _) = TextureDictionary.Textures[TextureDictionary.TextureName.chestIcon];
                     break;
             }
         }

@@ -24,12 +24,14 @@ namespace _2DMiningGameMG
         private Random randomOreGenerator;
         private Vector2 position;
         private Vector2 globalPosition;
+        private World world;
         public int Height { get; private set; }
         public int Width { get; private set; }
         public int Depth { get; private set; }
 
-        public WorldGrid()
+        public WorldGrid(World world)
         {
+            this.world = world;
             this.Height = 25;
             this.Width = 25;
             this.Depth = 25;
@@ -78,7 +80,7 @@ namespace _2DMiningGameMG
                 return;
 
             if (grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] is IStoragable)
-                (grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] as IStoragable).RemoveResources();
+                (grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] as IStoragable).RemoveResources(world);
 
             grid[(int)gridLocation.X, (int)gridLocation.Y, (int)gridLocation.Z] = tile;
         }

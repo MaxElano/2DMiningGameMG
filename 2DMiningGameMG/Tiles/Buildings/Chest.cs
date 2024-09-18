@@ -20,6 +20,9 @@ namespace _2DMiningGameMG
 
         public Chest(Vector3 gridLocation, int chestSize = 24, int rowSize = 8, int maxStackSize = 64) : base(gridLocation)
         {
+            (this.Texture, this.IsTransparent) = TextureDictionary.Textures[TextureDictionary.TextureName.chestTile];
+            
+            this.CanReceive = true;
             this.chestSize = chestSize;
             this.rowSize = rowSize;
             storage = new List<Resource>[rowSize, chestSize / rowSize];
@@ -60,14 +63,22 @@ namespace _2DMiningGameMG
                 }
         }
 
-        public void RemoveResources()
+        public void RemoveResources(World world)
         {
-            throw new NotImplementedException();
+            foreach (List<Resource> list in storage)
+                list.ForEach(resource => World.RemoveResource(resource));
         }
 
         public void UpdateResourcePosition(GameTime gameTime)
         {
-            throw new NotImplementedException();
+        }
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(Texture, globalPosition, Color.White);
+        }
+        public override void Update(GameTime gameTime, Vector2 globalOffset)
+        {
+            base.Update(gameTime, globalOffset);
         }
     }
 }
