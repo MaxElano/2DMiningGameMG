@@ -71,6 +71,7 @@ namespace _2DMiningGameMG
 
         public void UpdateResourcePosition(GameTime gameTime)
         {
+
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
